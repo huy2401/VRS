@@ -1,0 +1,792 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VSR.ViewModels"
+        xmlns:models="using:VSR.Models"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="750"
+        x:Class="VSR.Views.ReportEditWindow"
+        x:DataType="vm:ReportEditViewModel"
+        Title="{Binding WindowTitle}"
+        Icon="/Assets/app.ico"
+        Width="1200" Height="780"
+        MinWidth="900" MinHeight="550"
+        WindowStartupLocation="CenterOwner"
+        Background="#F8FAFC">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="#94A3B8"/>
+        <SolidColorBrush x:Key="TextControlPlaceholderForegroundPointerOver" Color="#94A3B8"/>
+        <SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="#CBD5E1"/>
+    </Window.Resources>
+
+    <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="PlaceholderForeground" Value="#94A3B8"/>
+        </Style>
+
+        <!-- Style cho TextBox trong bảng: Giữ nguyên tuyệt đối 100% kích thước, lề, viền và layout trước và sau khi nhấn chuột (Focus) -->
+        <Style Selector="DataGrid TextBox">
+            <Setter Property="Padding" Value="6, 4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+        </Style>
+        <Style Selector="DataGrid TextBox:focus">
+            <Setter Property="Padding" Value="6, 4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#2563EB"/>
+        </Style>
+        <Style Selector="DataGrid TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#2563EB"/>
+        </Style>
+        <Style Selector="DataGrid TextBox /template/ Border#PART_BorderElement">
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style Selector="DataGrid TextBox:focus /template/ ScrollViewer#PART_ScrollViewer">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BoxShadow" Value="0 2 8 0 #0A000000"/>
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="MinHeight" Value="34"/>
+            <Setter Property="Height" Value="34"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#1E40AF"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="14 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#1D4ED8"/>
+        </Style>
+
+        <Style Selector="Button.accent">
+            <Setter Property="Background" Value="#D97706"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="14 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.accent:pointerover">
+            <Setter Property="Background" Value="#B45309"/>
+        </Style>
+
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="12 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover">
+            <Setter Property="Background" Value="#E2E8F0"/>
+        </Style>
+
+        <Style Selector="Button.action-add-btn">
+            <Setter Property="Background" Value="#EFF6FF"/>
+            <Setter Property="Foreground" Value="#2563EB"/>
+            <Setter Property="BorderBrush" Value="#BFDBFE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Width" Value="26"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.action-add-btn:pointerover">
+            <Setter Property="Background" Value="#DBEAFE"/>
+            <Setter Property="BorderBrush" Value="#93C5FD"/>
+        </Style>
+
+        <Style Selector="Button.action-del-btn">
+            <Setter Property="Background" Value="#FEF2F2"/>
+            <Setter Property="Foreground" Value="#DC2626"/>
+            <Setter Property="BorderBrush" Value="#FECACA"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Width" Value="26"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.action-del-btn:pointerover">
+            <Setter Property="Background" Value="#FEE2E2"/>
+            <Setter Property="BorderBrush" Value="#FCA5A5"/>
+        </Style>
+
+        <!-- DataGrid Header Base Styling với ControlTemplate tối ưu triệt tiêu không gian thừa và đảm bảo line ngăn cách cột luôn rõ nét -->
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="MinHeight" Value="38"/>
+            <Setter Property="Padding" Value="6 6"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="UseLayoutRounding" Value="True"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Panel Background="{TemplateBinding Background}">
+                        <!-- Header Content & Sort Indicator -->
+                        <DockPanel Margin="{TemplateBinding Padding}" LastChildFill="True">
+                            <Path Name="SortIcon"
+                                  DockPanel.Dock="Right"
+                                  IsVisible="False"
+                                  Width="8" Height="5"
+                                  Stretch="Fill"
+                                  Margin="6 0 0 0"
+                                  VerticalAlignment="Center"/>
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </DockPanel>
+
+                        <!-- Left vertical separator (always 1px solid #CBD5E1, ZIndex 10) -->
+                        <Rectangle x:Name="HeaderLeftLine"
+                                   Width="1" 
+                                   Fill="#CBD5E1" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Stretch"
+                                   IsHitTestVisible="False"
+                                   ZIndex="10"/>
+
+                        <!-- Right vertical separator (always 1px solid #CBD5E1, ZIndex 10) -->
+                        <Rectangle x:Name="HeaderRightLine"
+                                   Width="1" 
+                                   Fill="#CBD5E1" 
+                                   HorizontalAlignment="Right" 
+                                   VerticalAlignment="Stretch"
+                                   IsHitTestVisible="False"
+                                   ZIndex="10"/>
+
+                        <!-- Bottom horizontal separator (always 1px solid #CBD5E1, ZIndex 10) -->
+                        <Rectangle x:Name="HeaderBottomLine"
+                                   Height="1" 
+                                   Fill="#CBD5E1" 
+                                   VerticalAlignment="Bottom" 
+                                   HorizontalAlignment="Stretch"
+                                   IsHitTestVisible="False"
+                                   ZIndex="10"/>
+                    </Panel>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <!-- Khi đang sort tăng dần (Sort Ascending) -->
+        <Style Selector="DataGridColumnHeader:sortascending /template/ Path#SortIcon">
+            <Setter Property="IsVisible" Value="True"/>
+            <Setter Property="Data" Value="M 0 5 L 4 0 L 8 5 Z"/>
+            <Setter Property="Fill" Value="#2563EB"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <!-- Cố định thanh cuộn hoàn toàn ra ngoài bảng dữ liệu, không overlay đè lên dữ liệu dòng cuối hoặc cột cuối -->
+        <Style Selector="DataGrid /template/ DataGridRowsPresenter#PART_RowsPresenter">
+            <Setter Property="Grid.RowSpan" Value="1"/>
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+        </Style>
+        <Style Selector="DataGrid /template/ DataGridColumnHeadersPresenter#PART_ColumnHeadersPresenter">
+            <Setter Property="Grid.ColumnSpan" Value="1"/>
+        </Style>
+        <Style Selector="DataGrid /template/ ScrollBar#PART_VerticalScrollbar">
+            <Setter Property="AllowAutoHide" Value="False"/>
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="Width" Value="14"/>
+            <Setter Property="MinWidth" Value="14"/>
+        </Style>
+        <Style Selector="DataGrid /template/ ScrollBar#PART_HorizontalScrollbar">
+            <Setter Property="AllowAutoHide" Value="False"/>
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="Height" Value="14"/>
+            <Setter Property="MinHeight" Value="14"/>
+        </Style>
+        <Style Selector="DataGrid /template/ Rectangle#PART_BottomRightCorner">
+            <Setter Property="Fill" Value="#F8FAFC"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        
+        <!-- 1. Header Information Banner -->
+        <Border Grid.Row="0" Background="#1E3A8A" Padding="18 14">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <TextBlock Text="⚡" IsVisible="{Binding IsAggregateCategory}" FontSize="20" VerticalAlignment="Center"/>
+                        <TextBlock Text="📝" IsVisible="{Binding IsInputCategory}" FontSize="20" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding ObjName}" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="16" Margin="28 0 0 0">
+                        <TextBlock FontSize="12" Foreground="#BFDBFE">
+                            <Run Text="📅 Kỳ: " FontWeight="Bold"/>
+                            <Run Text="{Binding TimeName}"/>
+                            <Run Text=" (Mã: "/>
+                            <Run Text="{Binding TimeId}"/>
+                            <Run Text=")"/>
+                        </TextBlock>
+                        <TextBlock FontSize="12" Foreground="#BFDBFE">
+                            <Run Text="🏢 Đơn vị báo cáo: " FontWeight="Bold"/>
+                            <Run Text="{Binding ReportOrgName}"/>
+                        </TextBlock>
+                        <TextBlock FontSize="12" Foreground="#BFDBFE">
+                            <Run Text="⏱️ Chu kỳ: " FontWeight="Bold"/>
+                            <Run Text="{Binding PeriodTypeName}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Status Badge, Stats & Refresh Button -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="16" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <StackPanel Spacing="6" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Border Background="{Binding StatusBadgeBackground}" CornerRadius="12" Padding="12 5" HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding StatusName}" Foreground="{Binding StatusBadgeForeground}" FontSize="12" FontWeight="Bold"/>
+                        </Border>
+                        <TextBlock FontSize="11" Foreground="#93C5FD" HorizontalAlignment="Right">
+                            <Run Text="Điền: "/>
+                            <Run Text="{Binding FilledCount}" FontWeight="Bold" Foreground="#FFFFFF"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding EditableCount}"/>
+                            <Run Text=" chỉ tiêu"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Nút Tải lại trên Header -->
+                    <Button Classes="primary" Background="#2563EB" Foreground="#FFFFFF" Click="OnRefreshClick" ToolTip.Tip="Tải lại chỉ tiêu từ server"
+                            VerticalAlignment="Center" Height="36" Padding="12 0" CornerRadius="6" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="🔄" FontSize="14" VerticalAlignment="Center"/>
+                            <TextBlock Text="Tải lại" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 2. Action Toolbar -->
+        <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="0 0 0 1" Padding="16 10">
+            <DockPanel LastChildFill="False" VerticalAlignment="Center">
+                
+                <!-- Left Buttons Container -->
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <!-- CHẾ ĐỘ TỔNG HỢP: Button 0: Tổng hợp báo cáo đã duyệt -->
+                    <Button Classes="primary" Background="#16A34A" Foreground="White" Click="OnAggregateApprovedClick"
+                            IsEnabled="{Binding !IsLoading}"
+                            IsVisible="{Binding IsAggregateCategory}"
+                            ToolTip.Tip="Lấy dữ liệu từ các báo cáo có trạng thái ĐÃ DUYỆT (Status 4) qua API FNC003_P105 và ghi vào báo cáo tổng hợp">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="⚡" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Tổng hợp báo cáo đã duyệt" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- CHẾ ĐỘ TỔNG HỢP: Button 1: Tổng hợp tất cả báo cáo -->
+                    <Button Classes="primary" Background="#7C3AED" Foreground="White" Click="OnAggregateAllClick"
+                            IsEnabled="{Binding !IsLoading}"
+                            IsVisible="{Binding IsAggregateCategory}"
+                            ToolTip.Tip="Lấy dữ liệu từ TẤT CẢ các báo cáo (ngoại trừ trạng thái 'Đã giao') qua API FNC003_P105 và ghi vào báo cáo tổng hợp">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="⚡" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Tổng hợp tất cả báo cáo" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- CHẾ ĐỘ TỔNG HỢP: Button 2: Kiểm tra đơn vị gửi báo cáo -->
+                    <Button Classes="secondary" Click="OnCheckUnitsClick"
+                            IsEnabled="{Binding !IsLoading}"
+                            IsVisible="{Binding IsAggregateCategory}"
+                            ToolTip.Tip="Xem danh sách đơn vị được phân công, mã org và trạng thái nộp báo cáo">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="🏢" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Kiểm tra đơn vị gửi báo cáo" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- CHẾ ĐỘ NHẬP LIỆU: Button 3: Lấy chỉ tiêu và dữ liệu kỳ trước -->
+                    <Button x:Name="GetPrePeriodButton" Classes="secondary" Click="OnGetPrePeriodDataClick"
+                            IsEnabled="{Binding !IsLoading}"
+                            IsVisible="{Binding IsInputCategory}"
+                            ToolTip.Tip="Lấy chỉ tiêu và dữ liệu đã nhập từ kỳ trước đó để tự động điền vào biểu mẫu">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="📥" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Lấy dữ liệu kỳ trước" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- CHẾ ĐỘ NHẬP LIỆU: Button 4: Nhập Excel -->
+                    <Button x:Name="ImportExcelButton" Classes="secondary" Click="OnImportExcelClick"
+                            IsEnabled="{Binding !IsLoading}"
+                            IsVisible="{Binding IsInputCategory}"
+                            ToolTip.Tip="Nhập (Import) số liệu từ file Excel vào bảng hiện tại">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="📂" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Nhập Excel" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- So sánh chỉ đọc: không ghi đè dữ liệu hiện có trong bảng. -->
+                    <Button x:Name="CompareExcelButton" Classes="secondary" Click="OnCompareExcelClick"
+                            IsEnabled="{Binding !IsLoading}"
+                            IsVisible="{Binding IsInputCategory}"
+                            ToolTip.Tip="Chọn Excel để so sánh; các ô sai khác sẽ được đánh dấu đỏ">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock x:Name="CompareExcelIcon" Text="🔎" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="CompareExcelLabel" Text="So sánh Excel" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- CHẾ ĐỘ NHẬP LIỆU: Button 5: Xuất Excel -->
+                    <Button x:Name="ExportExcelButton" Classes="secondary" Click="OnExportExcelClick"
+                            IsEnabled="{Binding !IsLoading}"
+                            IsVisible="{Binding IsInputCategory}"
+                            ToolTip.Tip="Xuất (Export) toàn bộ dữ liệu bảng hiện tại ra file Excel (.xlsx)">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="📤" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Xuất Excel" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- DÙNG CHUNG: Button 6: Lưu số liệu lên hệ thống IOC -->
+                    <Button x:Name="SaveButton" Classes="primary" Click="OnSaveToServerClick"
+                            IsEnabled="{Binding !IsSaving}"
+                            ToolTip.Tip="Gửi số liệu đã chỉnh sửa lên máy chủ IOC (FNC003_P220)">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="💾" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Lưu số liệu" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- DÙNG CHUNG: Button 7: Trình lãnh đạo -->
+                    <Button Classes="accent" Click="OnSubmitToLeaderClick"
+                            IsEnabled="{Binding !IsSaving}"
+                            ToolTip.Tip="Mở popup nhập ý kiến và trình báo cáo lên lãnh đạo phê duyệt">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="🚀" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Trình lãnh đạo" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <!-- RIGHT: Zoom Control -->
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <!-- Divider -->
+                    <Border Width="1" Height="24" Background="#E2E8F0" Margin="4 0"/>
+                    <!-- Zoom icon -->
+                    <TextBlock Text="🔍" FontSize="13" VerticalAlignment="Center" Opacity="0.6"/>
+                    <!-- Zoom Out button -->
+                    <Button x:Name="ZoomOutButton"
+                            Click="OnZoomOutClick"
+                            Width="24" Height="24" Padding="0"
+                            CornerRadius="4"
+                            Background="#F1F5F9"
+                            Foreground="#475569"
+                            FontSize="14" FontWeight="Bold"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            ToolTip.Tip="Thu nhỏ (Ctrl + Cuộn xuống)"
+                            Cursor="Hand">
+                        <TextBlock Text="−" FontSize="15" FontWeight="Bold"/>
+                    </Button>
+                    <!-- Zoom Slider -->
+                    <Slider x:Name="ZoomSlider"
+                            Minimum="50" Maximum="200" Value="100"
+                            Width="110"
+                            TickFrequency="10"
+                            IsSnapToTickEnabled="True"
+                            VerticalAlignment="Center"
+                            ToolTip.Tip="Kéo để phóng to / thu nhỏ bảng"
+                            ValueChanged="OnZoomSliderChanged"/>
+                    <!-- Zoom In button -->
+                    <Button x:Name="ZoomInButton"
+                            Click="OnZoomInClick"
+                            Width="24" Height="24" Padding="0"
+                            CornerRadius="4"
+                            Background="#F1F5F9"
+                            Foreground="#475569"
+                            FontSize="14" FontWeight="Bold"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            ToolTip.Tip="Phóng to (Ctrl + Cuộn lên)"
+                            Cursor="Hand">
+                        <TextBlock Text="+" FontSize="15" FontWeight="Bold"/>
+                    </Button>
+                    <!-- Zoom % label (click to reset) -->
+                    <Button x:Name="ZoomResetButton"
+                            Click="OnZoomResetClick"
+                            MinWidth="46" Height="24" Padding="4 0"
+                            CornerRadius="4"
+                            Background="#F1F5F9"
+                            Foreground="#334155"
+                            FontSize="12" FontWeight="SemiBold"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            ToolTip.Tip="Nhấn để đặt lại về 100%"
+                            Cursor="Hand">
+                        <TextBlock x:Name="ZoomLabel" Text="100%" FontSize="12" FontWeight="SemiBold"/>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- 3. Indicators DataGrid (Sử dụng ScrollViewer vật lý theo pixel để cuộn siêu mượt, không bao giờ bị nhảy cóc hay giật dòng) -->
+        <Border Grid.Row="2" Margin="16" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="8" Background="#FFFFFF" ClipToBounds="True">
+            <Panel>
+                <ScrollViewer x:Name="GridScrollViewer"
+                              AllowAutoHide="False"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <LayoutTransformControl x:Name="GridZoomContainer">
+                        <DataGrid x:Name="IndicatorsGrid"
+                                  ItemsSource="{Binding FilteredIndicators}"
+                                  AutoGenerateColumns="False"
+                                  SelectionMode="Single"
+                                  GridLinesVisibility="All"
+                                  BorderThickness="0"
+                                  Background="#FFFFFF"
+                                  CanUserResizeColumns="True"
+                                  CanUserSortColumns="False"
+                                  HorizontalAlignment="Left"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <DataGrid.Styles>
+                        <!-- Chiều cao dòng tự động co dãn theo nội dung dài nhất của dòng và cố định tuyệt đối -->
+                        <Style Selector="DataGridRow" x:DataType="models:IndicatorItem">
+                            <Setter Property="Background" Value="{Binding RowBackground}"/>
+                            <Setter Property="MinHeight" Value="{Binding CalculatedRowHeight}"/>
+                        </Style>
+                        <!-- Việc chọn dữ liệu được quản lý theo từng ô ở code-behind.
+                             Giữ nền của hàng khi DataGrid đặt SelectedItem để không còn bôi đen cả hàng. -->
+                        <Style Selector="DataGridRow:selected" x:DataType="models:IndicatorItem">
+                            <Setter Property="Background" Value="{Binding RowBackground}"/>
+                        </Style>
+
+                    <!-- Tắt hoàn toàn viền focus đen mặc định của DataGridCell (để không bị viền đen ở ô Đơn vị tính) -->
+                    <Style Selector="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    </Style>
+                    <Style Selector="DataGridCell:current">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                    <Style Selector="DataGridCell:focus">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                    <!-- DataGrid vẫn duy trì SelectedItem để hỗ trợ bàn phím, nhưng không
+                         được tự tô toàn bộ hàng; màu chọn chỉ do range-selected quyết định. -->
+                    <Style Selector="DataGridCell:selected">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                    <Style Selector="DataGridCell /template/ Rectangle#FocusVisual">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </Style>
+                    <Style Selector="DataGridCell:current /template/ Rectangle#FocusVisual">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </Style>
+                    <Style Selector="DataGridCell:focus /template/ Rectangle#FocusVisual">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </Style>
+                    <Style Selector="DataGridCell:current /template/ Grid#FocusVisual">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </Style>
+                    <Style Selector="DataGridCell:focus /template/ Grid#FocusVisual">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </Style>
+                    <!-- Vùng được kéo chọn: chỉ các ô nằm trong hình chữ nhật mới được tô màu. -->
+                    <Style Selector="DataGridCell.range-selected">
+                        <Setter Property="Background" Value="#BFDBFE"/>
+                        <Setter Property="BorderBrush" Value="#2563EB"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                    </Style>
+
+                    <!-- Cố định chiều cao Header cột là 46px -->
+                    <Style Selector="DataGridColumnHeader">
+                        <Setter Property="Height" Value="46"/>
+                        <Setter Property="MinHeight" Value="46"/>
+                        <Setter Property="MaxHeight" Value="46"/>
+                        <Setter Property="Padding" Value="8 4"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                    <Style Selector="DataGridColumnHeader TextBlock">
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                        <Setter Property="TextAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.Styles>
+                <DataGrid.Columns>
+                    
+                    <!-- 0. THAO TÁC: Cột icon thao tác ĐẦU TIÊN (Ẩn khi báo cáo không có chỉ tiêu thêm con, Hiện khi có AllowAddRow hoặc IsSubInd) -->
+                    <DataGridTemplateColumn Header="Thao tác" Width="76" CanUserResize="False" IsVisible="{Binding IsActionColumnVisible}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:IndicatorItem">
+                                <StackPanel Orientation="Horizontal" Spacing="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <!-- Nút ➕ Chèn một dòng chỉ tiêu mới ngay dưới dòng này -->
+                                    <Button Classes="action-add-btn"
+                                            Click="OnAddSubIndicatorClick"
+                                            CommandParameter="{Binding}"
+                                            ToolTip.Tip="Chèn một dòng mới ở bên dưới dòng này">
+                                        <TextBlock Text="➕" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Button>
+
+                                    <!-- Nút 🗑️ Xóa dòng chỉ tiêu con (cho dòng con IsSubInd) -->
+                                    <Button Classes="action-del-btn"
+                                            IsVisible="{Binding IsSubInd}"
+                                            Click="OnDeleteSubIndicatorClick"
+                                            CommandParameter="{Binding}"
+                                            ToolTip.Tip="Xóa dòng chỉ tiêu này">
+                                        <TextBlock Text="🗑️" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- 1. STT (Chỉ mục / Số thứ tự phân cấp) -->
+                    <DataGridTemplateColumn Header="STT" Width="65" CanUserResize="True" IsVisible="{Binding IsSttColumnVisible}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:IndicatorItem">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
+                                    <!-- Chế độ xem thông thường -->
+                                    <TextBlock Text="{Binding SttDisplay}" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center" 
+                                               FontWeight="{Binding NameFontWeight}"
+                                               Foreground="{Binding NameForeground}"
+                                               IsVisible="{Binding !IsSubInd}"/>
+                                    <!-- Chế độ chỉnh sửa cho chỉ tiêu con được thêm động -->
+                                    <TextBox Text="{Binding SttDisplay, Mode=TwoWay}"
+                                             Tag="STT"
+                                             GotFocus="OnCellTextBoxGotFocus"
+                                             HorizontalContentAlignment="Center"
+                                             VerticalContentAlignment="Center"
+                                             HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Stretch"
+                                             MinHeight="30"
+                                             Background="#FFFFFF"
+                                             BorderBrush="#CBD5E1"
+                                             BorderThickness="1"
+                                             CornerRadius="4"
+                                             Padding="6 4"
+                                             FontWeight="SemiBold"
+                                             Foreground="#1E40AF"
+                                             IsVisible="{Binding IsSubInd}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- 2. Mã chỉ tiêu (Ẩn/Hiện động theo cấu hình hệ thống IOC) -->
+                    <DataGridTemplateColumn Header="Mã chỉ tiêu" Width="180" MinWidth="120" CanUserResize="True" IsVisible="{Binding IsCodeColumnVisible}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:IndicatorItem">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
+                                    <!-- Chế độ xem thông thường -->
+                                    <TextBlock Text="{Binding IndCode}" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center" 
+                                               FontWeight="{Binding NameFontWeight}"
+                                               Foreground="{Binding NameForeground}"
+                                               TextTrimming="CharacterEllipsis"
+                                               IsVisible="{Binding !IsSubInd}"/>
+                                    <!-- Chế độ chỉnh sửa cho chỉ tiêu con được thêm động -->
+                                    <TextBox Text="{Binding IndCode, Mode=TwoWay}"
+                                             Tag="IndCode"
+                                             GotFocus="OnCellTextBoxGotFocus"
+                                             PlaceholderText="Mã chỉ tiêu..."
+                                             HorizontalContentAlignment="Center"
+                                             VerticalContentAlignment="Center"
+                                             HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Stretch"
+                                             MinHeight="30"
+                                             Background="#FFFFFF"
+                                             BorderBrush="#CBD5E1"
+                                             BorderThickness="1"
+                                             CornerRadius="4"
+                                             Padding="6 4"
+                                             FontWeight="SemiBold"
+                                             Foreground="#1E40AF"
+                                             IsVisible="{Binding IsSubInd}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- 3. Tên chỉ tiêu / Nhiệm vụ (Độ rộng cố định theo kích thước API, không tự co giãn) -->
+                    <DataGridTemplateColumn Header="Tên chỉ tiêu / Nhiệm vụ" Width="400" MinWidth="200" CanUserResize="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:IndicatorItem">
+                                <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <!-- Chỉ tiêu thông thường: Giữ nguyên lề thụt IndentMargin và icon thư mục 📁 (cho header) / kim cương 🔹 (cho chỉ tiêu lá gốc) -->
+                                    <Grid Margin="{Binding IndentMargin}" VerticalAlignment="Center" ColumnDefinitions="Auto,*" IsVisible="{Binding !IsSubInd}">
+                                        <TextBlock Grid.Column="0" Text="📁 " IsVisible="{Binding IsHeader}" FontSize="12" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="0" Text="🔹 " IsVisible="{Binding IsNormalLeaf}" FontSize="10" Foreground="#64748B" VerticalAlignment="Center" Margin="0 0 4 0"/>
+                                        <TextBlock Grid.Column="1" 
+                                                   Text="{Binding IndName}" 
+                                                   FontWeight="{Binding NameFontWeight}" 
+                                                   Foreground="{Binding NameForeground}"
+                                                   TextWrapping="Wrap"
+                                                   VerticalAlignment="Center"
+                                                   Margin="2 4"/>
+                                    </Grid>
+                                    
+                                    <!-- Chỉ tiêu con được thêm động: Không có icon 🔹, ô điền kéo dãn phẳng căng khít 100% giống hệt ô dữ liệu bình thường -->
+                                    <Grid Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsVisible="{Binding IsSubInd}">
+                                        <TextBox Text="{Binding IndName, Mode=TwoWay}"
+                                                 Tag="IndName"
+                                                 GotFocus="OnCellTextBoxGotFocus"
+                                                 PlaceholderText="Nhập tên chỉ tiêu con..."
+                                                 HorizontalContentAlignment="Left"
+                                                 VerticalContentAlignment="Center"
+                                                 HorizontalAlignment="Stretch"
+                                                 VerticalAlignment="Stretch"
+                                                 MinHeight="30"
+                                                 Background="#FFFFFF"
+                                                 BorderBrush="#CBD5E1"
+                                                 BorderThickness="1"
+                                                 CornerRadius="4"
+                                                 Padding="6 4"
+                                                 TextWrapping="Wrap"
+                                                 AcceptsReturn="True"
+                                                 FontWeight="SemiBold"
+                                                 Foreground="#1E40AF"/>
+                                    </Grid>
+                                </Panel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- 4. Đơn vị tính (Ẩn/Hiện động theo cấu hình hệ thống IOC) -->
+                    <DataGridTemplateColumn Header="Đơn vị tính" Width="110" MinWidth="80" CanUserResize="True" IsVisible="{Binding IsUnitColumnVisible}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:IndicatorItem">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
+                                    <!-- Chỉ tiêu thông thường: Xem text -->
+                                    <TextBlock Text="{Binding IndUnit}" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               Foreground="#334155"
+                                               TextTrimming="CharacterEllipsis"
+                                               IsVisible="{Binding !IsSubInd}"/>
+                                    <!-- Chỉ tiêu con thêm động: Cho phép sửa đơn vị tính chuẩn như ô bình thường -->
+                                    <TextBox Text="{Binding IndUnit, Mode=TwoWay}"
+                                             Tag="IndUnit"
+                                             GotFocus="OnCellTextBoxGotFocus"
+                                             PlaceholderText="Đơn vị..."
+                                             HorizontalContentAlignment="Center"
+                                             VerticalContentAlignment="Center"
+                                             HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Stretch"
+                                             MinHeight="30"
+                                             Background="#FFFFFF"
+                                             BorderBrush="#CBD5E1"
+                                             BorderThickness="1"
+                                             CornerRadius="4"
+                                             Padding="6 4"
+                                             FontWeight="SemiBold"
+                                             Foreground="#1E40AF"
+                                             IsVisible="{Binding IsSubInd}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+                <!-- Menu chuột phải cho DataGrid -->
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Sao chép các dòng đã chọn vào Excel (Ctrl+C)" Click="OnCopySelectedRowsClick" InputGesture="Ctrl+C">
+                            <MenuItem.Icon>
+                                <TextBlock Text="📋" FontSize="13"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Dán dữ liệu từ Clipboard (Ctrl+V)" Click="OnPasteClipboardClick" InputGesture="Ctrl+V">
+                            <MenuItem.Icon>
+                                <TextBlock Text="📥" FontSize="13"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+            </LayoutTransformControl>
+        </ScrollViewer>
+
+                <!-- Loading Indicator Overlay -->
+                <Border Background="#99FFFFFF" IsVisible="{Binding IsLoading}" CornerRadius="8">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+                        <TextBlock Text="⏳" FontSize="32" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding StatusMessage}" FontWeight="SemiBold" Foreground="#1E3A8A" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Panel>
+        </Border>
+
+        <!-- 4. Bottom Status Bar & Close Button -->
+        <Border Grid.Row="3" Background="#F1F5F9" BorderBrush="#E2E8F0" BorderThickness="0 1 0 0" Padding="16 10">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock Text="📋 Hướng dẫn: Có thể copy nhiều ô trong Excel và bấm Ctrl+V vào bảng để dán. Nếu hết phiên đăng nhập, có thể Export Excel để lưu dữ liệu đã điền" 
+                               FontSize="11" Foreground="#64748B" VerticalAlignment="Center" Margin="0 0 16 0"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Classes="secondary" Click="OnCloseClick" Padding="16 6">
+                    <TextBlock Text="Đóng"/>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- 5. Floating Toast Notification (Như ảnh 2) -->
+        <Border Name="ToastNotification" 
+                Grid.Row="0" Grid.RowSpan="4"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" 
+                Background="#52C41A" 
+                CornerRadius="6 0 0 0" 
+                Padding="24 12" 
+                BoxShadow="0 -2 12 0 #26000000"
+                IsVisible="False"
+                ZIndex="999">
+            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <TextBlock Name="TxtToastIcon" Text="✓" FontWeight="Bold" Foreground="#FFFFFF" FontSize="14" VerticalAlignment="Center"/>
+                <TextBlock Name="TxtToastMessage" Text="Cập nhật thành công!" FontWeight="SemiBold" Foreground="#FFFFFF" FontSize="13" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

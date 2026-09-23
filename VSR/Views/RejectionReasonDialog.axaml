@@ -1,0 +1,100 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="using:VSR.Models"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="560" d:DesignHeight="360"
+        x:Class="VSR.Views.RejectionReasonDialog"
+        Title="Thông tin trạng thái báo cáo"
+        Icon="/Assets/app.ico"
+        Width="560" Height="360"
+        MinWidth="480" MinHeight="300"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#F8FAFC">
+
+    <Window.Styles>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BoxShadow" Value="0 4 16 0 #0F000000"/>
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Height" Value="36"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#1E40AF"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#1D4ED8"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="18">
+        
+        <!-- Header Banner -->
+        <Border Name="HeaderBorder" Grid.Row="0" Background="#FEF2F2" BorderBrush="#FECACA" BorderThickness="1" CornerRadius="8" Padding="14 10" Margin="0 0 0 12">
+            <Grid ColumnDefinitions="Auto,*">
+                <TextBlock Name="TxtHeaderIcon" Grid.Column="0" Text="💬" FontSize="22" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                    <TextBlock Name="TxtHeaderTitle" Text="THÔNG BÁO TỪ CHỐI / ĐÍNH CHÍNH" FontSize="13" FontWeight="Bold" Foreground="#DC2626" VerticalAlignment="Center"/>
+                    <TextBlock Name="TxtHeaderSubTitle" Text="Nội dung ý kiến và lý do từ hệ thống IOC" FontSize="11" Foreground="#DC2626"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Body Content -->
+        <Border Grid.Row="1" Classes="card" Padding="14">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="Auto,*" VerticalAlignment="Top">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Biểu mẫu:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 3 12 3"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Name="TxtReportName" Text="[Tên báo cáo]" FontWeight="Bold" Foreground="#1E293B" FontSize="12" TextWrapping="Wrap" Margin="0 3 0 3"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Đơn vị:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 3 12 3"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Name="TxtOrgName" Text="[Đơn vị báo cáo]" Foreground="#334155" FontSize="12" Margin="0 3 0 3"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Kỳ dữ liệu:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 3 12 3"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Name="TxtPeriod" Text="[Kỳ]" Foreground="#334155" FontSize="12" Margin="0 3 0 3"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Trạng thái:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 3 12 3" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 3 0 3">
+                        <Border Name="StatusBadge" Background="#DCFCE7" CornerRadius="12" Padding="10 3">
+                            <TextBlock Name="TxtStatus" Text="[Trạng thái]" FontWeight="Bold" Foreground="#15803D" FontSize="12"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Dòng ngăn cách -->
+                    <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Height="1" Background="#E2E8F0" Margin="0 8 0 8"/>
+
+                    <!-- Khung hiển thị Tin nhắn / Lý do từ chối -->
+                    <TextBlock Name="LblReason" Grid.Row="5" Grid.Column="0" Text="Nội dung:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 3 12 3" VerticalAlignment="Top"/>
+                    <Border Name="ReasonContainer" Grid.Row="5" Grid.Column="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="6" Padding="10 8" Margin="0 2 0 0">
+                        <TextBlock Name="TxtReasonContent" Text="[Không có nội dung ghi chú]" Foreground="#1E293B" FontSize="13" TextWrapping="Wrap" FontWeight="Normal" LineHeight="20"/>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Footer Actions -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0 12 0 0">
+            <Button Classes="primary" Click="OnCloseClick" Width="90" Height="34" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <TextBlock Text="Đóng" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

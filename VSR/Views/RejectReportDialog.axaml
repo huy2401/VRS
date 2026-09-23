@@ -1,0 +1,113 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="using:VSR.Models"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="560" d:DesignHeight="380"
+        x:Class="VSR.Views.RejectReportDialog"
+        Title="Từ chối báo cáo"
+        Icon="/Assets/app.ico"
+        Width="560" Height="380"
+        MinWidth="480" MinHeight="320"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#F8FAFC">
+
+    <Window.Styles>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BoxShadow" Value="0 4 16 0 #0F000000"/>
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Height" Value="36"/>
+        </Style>
+
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#DC2626"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.danger:pointerover">
+            <Setter Property="Background" Value="#B91C1C"/>
+        </Style>
+
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover">
+            <Setter Property="Background" Value="#E2E8F0"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        
+        <!-- Header Bar -->
+        <Border Grid.Row="0" Background="#FEF2F2" BorderBrush="#FECACA" BorderThickness="1" CornerRadius="8" Padding="14 10" Margin="0 0 0 14">
+            <Grid ColumnDefinitions="Auto,*">
+                <TextBlock Grid.Column="0" Text="🚫" FontSize="20" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                    <TextBlock Text="TỪ CHỐI / YÊU CẦU NHẬP LẠI BÁO CÁO" FontSize="14" FontWeight="Bold" Foreground="#991B1B" VerticalAlignment="Center"/>
+                    <TextBlock Text="Nhập lý do hoặc yêu cầu chỉnh sửa gửi về cho người nhập liệu" FontSize="11" Foreground="#B91C1C"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Body Form -->
+        <Border Grid.Row="1" Classes="card" Padding="16">
+            <StackPanel Spacing="12">
+                <!-- Report Info -->
+                <Grid ColumnDefinitions="Auto,*">
+                    <TextBlock Grid.Column="0" Text="Báo cáo:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 0 8 0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Name="TxtReportInfo" Text="[Tên báo cáo - Kỳ dữ liệu]" FontWeight="Bold" Foreground="#1E293B" FontSize="12" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                </Grid>
+
+                <Separator Height="1" Background="#E2E8F0"/>
+
+                <!-- Rejection Reason Input -->
+                <StackPanel Spacing="6">
+                    <TextBlock Text="Lý do từ chối / Nội dung yêu cầu sửa đổi:" FontWeight="SemiBold" Foreground="#475569" FontSize="12"/>
+                    <TextBox Name="TxtReason" 
+                             AcceptsReturn="True" 
+                             TextWrapping="Wrap" 
+                             Height="110" 
+                             PlaceholderText="Nhập chi tiết lý do từ chối báo cáo..."
+                             FontSize="13"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Footer Actions -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0 14 0 0">
+            <Button Classes="secondary" Click="OnCancelClick" Width="90" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <TextBlock Text="Hủy" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Button>
+            <Button Classes="danger" Click="OnConfirmClick" MinWidth="160" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="🚫" FontSize="13" VerticalAlignment="Center"/>
+                    <TextBlock Text="Xác Nhận Từ Chối" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

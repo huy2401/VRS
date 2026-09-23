@@ -1,0 +1,205 @@
+{
+  "_comment": "Cấu hình định nghĩa và ánh xạ các trường dữ liệu, mã thủ tục (Stored Procedure) và mã chức năng của hệ thống IOC",
+  "fields": {
+    "OBJ_ID": {
+      "name": "Mã ID biểu mẫu",
+      "description": "Định danh duy nhất của biểu mẫu báo cáo trên hệ thống IOC"
+    },
+    "OBJ_CODE": {
+      "name": "Mã ký hiệu biểu mẫu",
+      "description": "Mã viết tắt của biểu mẫu báo cáo (VD: CTKTXH_THANG, NQ68)"
+    },
+    "OBJ_NAME": {
+      "name": "Tên biểu mẫu báo cáo",
+      "description": "Tiêu đề đầy đủ của biểu mẫu báo cáo (các trường dự phòng: TITLE, REPORT_NAME, TEN_BIEU_MAU)"
+    },
+    "ATTR_ID": {
+      "name": "Mã ID thuộc tính",
+      "description": "Mã định danh thuộc tính/cột động của biểu mẫu (dùng trong FNC003_P03, FNC003_S315)"
+    },
+    "IND_ID": {
+      "name": "Mã ID chỉ tiêu",
+      "description": "Mã định danh duy nhất của từng chỉ tiêu / dòng nhiệm vụ (dùng trong FNC003_P105, P220)"
+    },
+    "IND_CODE": {
+      "name": "Mã ký hiệu chỉ tiêu",
+      "description": "Mã phân cấp của chỉ tiêu (VD: 1, 1.1, 1.2, 68_N02)"
+    },
+    "IND_NAME": {
+      "name": "Tên chỉ tiêu / Nhiệm vụ",
+      "description": "Tên mô tả nội dung của chỉ tiêu hoặc nhiệm vụ cần báo cáo"
+    },
+    "IND_UNIT": {
+      "name": "Đơn vị tính",
+      "description": "Đơn vị tính của chỉ tiêu (VD: triệu USD, %, người, cái...)"
+    },
+    "IND_TYPE": {
+      "name": "Loại chỉ tiêu",
+      "description": "1: Chỉ tiêu nhập số liệu/tổng, 2: Dòng tiêu đề/Header, 4: Trung bình cộng, 5: Lớn nhất (Max), 6: Nhỏ nhất (Min)"
+    },
+    "IND_INDEX": {
+      "name": "Số thứ tự phân cấp (STT)",
+      "description": "Thứ tự hiển thị phân cấp của chỉ tiêu (các trường dự phòng: RN, STT, ORDER_BY, STT_DISPLAY)"
+    },
+    "TIME_ID": {
+      "name": "Mã kỳ dữ liệu",
+      "description": "Mã số định danh kỳ báo cáo (VD: 202605 cho Tháng 5/2026, 2026 cho Năm 2026)"
+    },
+    "TIME_NAME": {
+      "name": "Tên kỳ dữ liệu",
+      "description": "Tên hiển thị chu kỳ báo cáo (VD: 'Tháng 05/2026', 'Quý 2/2026', 'Năm 2026')"
+    },
+    "SUBMIT_TYPE": {
+      "name": "Loại chu kỳ nộp báo cáo",
+      "description": "1: Ngày, 2: Tháng, 3: Quý, 4: Năm, 6: Tuần, 8: 6 Tháng (Bán niên)"
+    },
+    "STATE_ID": {
+      "name": "Mã trạng thái báo cáo",
+      "description": "1: Đang nhập liệu / Đang tổng hợp, 2: Đã trình lãnh đạo, 3: Đã gửi cấp trên, 4: Đã được duyệt, 5/8/9: Từ chối / Trả lại, 6: Yêu cầu đính chính"
+    },
+    "STATE_NAME": {
+      "name": "Tên trạng thái báo cáo",
+      "description": "Tên hiển thị trạng thái xử lý của biểu mẫu báo cáo (trường dự phòng: STATUS_NAME, STATUS)"
+    },
+    "PARENT_ID": {
+      "name": "ID chỉ tiêu cha",
+      "description": "ID của chỉ tiêu cấp trên dùng để xây dựng cây phân cấp và tính tổng tự động cho cha"
+    },
+    "FORMULA": {
+      "name": "Công thức tính toán",
+      "description": "Công thức toán học tự động tính giá trị chỉ tiêu từ các chỉ tiêu khác (VD: '[1.1] + [1.2]')"
+    },
+    "FLD_CODE": {
+      "name": "Mã trường cột động",
+      "description": "Mã cột dữ liệu động trong bảng (VD: 'FN01', 'C953158')"
+    },
+    "ATTR_CODE": {
+      "name": "Mã thuộc tính",
+      "description": "Mã ký hiệu của thuộc tính cột (VD: 'CTKTXH', 'IND_UNIT', 'RN')"
+    },
+    "ATTR_VAL": {
+      "name": "Giá trị thuộc tính",
+      "description": "Giá trị số liệu hoặc văn bản của thuộc tính trong mảng ATTR_INFO"
+    },
+    "ATTR_INFO": {
+      "name": "Mảng thông tin thuộc tính",
+      "description": "Mảng JSON chứa chi tiết giá trị của từng cột thuộc tính trong mỗi dòng chỉ tiêu"
+    },
+    "IS_HIDDEN": {
+      "name": "Cờ đánh dấu cột ẩn",
+      "description": "1: Cột bị ẩn trong cấu hình IOC, 0: Cột hiển thị"
+    },
+    "VISIBLE": {
+      "name": "Cờ hiển thị cột",
+      "description": "1: Cột được phép hiển thị, 0: Cột bị ẩn"
+    },
+    "IS_LEAF": {
+      "name": "Cột lá phân cấp",
+      "description": "1: Là cột lá cuối cùng trong cây thuộc tính (được render thành cột trên bảng)"
+    },
+    "COL_WIDTH": {
+      "name": "Độ rộng cột",
+      "description": "Độ rộng (pixel) của cột được cấu hình trên hệ thống IOC"
+    },
+    "DATA_TYPE": {
+      "name": "Kiểu dữ liệu cột",
+      "description": "1: Số nguyên (Integer Number), 2: Số thực (Real Number), 3: Chuỗi ký tự (String / Text)"
+    },
+    "ALIGN": {
+      "name": "Căn lề cột",
+      "description": "1: Căn trái (Left), 2: Căn giữa (Center), 3: Căn phải (Right)"
+    },
+    "FONT_SIZE": {
+      "name": "Cỡ chữ",
+      "description": "Kích thước font chữ của cột cấu hình trên hệ thống IOC"
+    },
+    "NOTE": {
+      "name": "Ghi chú / Ý kiến lãnh đạo",
+      "description": "Nội dung ghi chú khi trình, lý do từ chối phê duyệt hoặc yêu cầu đính chính"
+    },
+    "CORRECTION_REQ": {
+      "name": "Số lần yêu cầu đính chính",
+      "description": "Đếm số lần cấp trên gửi yêu cầu đính chính số liệu"
+    }
+  },
+  "procedures": {
+    "FNC002_S01": {
+      "name": "Danh sách báo cáo nhập liệu",
+      "description": "Lấy danh sách các biểu mẫu báo cáo đang cần nhập liệu và bị từ chối / nhập lại (Tab 1)"
+    },
+    "FNC002_S06": {
+      "name": "Danh sách báo cáo gửi đi",
+      "description": "Lấy danh sách các báo cáo đã trình lãnh đạo và đã được lãnh đạo phê duyệt (Tab 2)"
+    },
+    "FNC002_S04": {
+      "name": "Danh sách theo dõi trạng thái",
+      "description": "Lấy toàn bộ báo cáo phân bổ, trạng thái phê duyệt, yêu cầu đính chính và phản hồi (Tab 3)"
+    },
+    "FNC002_S08": {
+      "name": "Danh sách duyệt & tổng hợp báo cáo",
+      "description": "Lấy danh sách báo cáo chờ duyệt (Đã gửi) và báo cáo tổng hợp số liệu trực tiếp từ các đơn vị (Tab 4 & Tab 5)"
+    },
+    "FNC003_P03": {
+      "name": "Cấu trúc biểu mẫu báo cáo",
+      "description": "Lấy ATTR_ID gốc, TOP_IND_ID gốc và SUBMIT_TYPE của biểu mẫu báo cáo"
+    },
+    "FNC003_S13": {
+      "name": "Lấy danh sách thuộc tính ẩn (sqlGetAttrHidden)",
+      "description": "Truy vấn danh sách các ATTR_ID / ATTR_CODE được cấu hình ẩn cho biểu mẫu"
+    },
+    "FNC003_S315": {
+      "name": "Lấy danh sách cột động (có loại trừ cột ẩn)",
+      "description": "Lấy cấu trúc cột chi tiết và loại trừ các cột trong danh sách ẩn của S13"
+    },
+    "FNC003_S312": {
+      "name": "Lấy danh sách toàn bộ cột động",
+      "description": "Lấy cấu trúc toàn bộ cột khi biểu mẫu không có thuộc tính ẩn nào"
+    },
+    "FNC003_P105": {
+      "name": "Lấy số liệu và chỉ tiêu chi tiết",
+      "description": "Lấy danh sách toàn bộ các dòng chỉ tiêu cùng số liệu của từng cột theo kỳ dữ liệu"
+    },
+    "FNC003_S202": {
+      "name": "Lấy công thức tính toán chỉ tiêu",
+      "description": "Truy vấn công thức (FORMULA) đã cấu hình cho từng chỉ tiêu của biểu mẫu"
+    },
+    "FNC003_P220": {
+      "name": "Lưu dữ liệu báo cáo lên máy chủ",
+      "description": "Gửi toàn bộ mảng JSON số liệu chỉ tiêu đã chỉnh sửa hoặc tổng hợp lên máy chủ IOC"
+    },
+    "FNC006_S200": {
+      "name": "Kiểm tra tiến độ đơn vị gửi báo cáo",
+      "description": "Lấy danh sách các cơ quan/đơn vị cấp dưới được phân công nộp báo cáo và trạng thái nộp"
+    },
+    "FNC002_P030": {
+      "name": "Trình báo cáo lên lãnh đạo",
+      "description": "Chuyển trạng thái báo cáo sang 2 (Đã trình lãnh đạo)"
+    },
+    "FNC002_P02": {
+      "name": "Gửi báo cáo lên cấp trên",
+      "description": "Chuyển trạng thái báo cáo sang 3 (Báo cáo đã được gửi)"
+    },
+    "FNC002_P03": {
+      "name": "Phê duyệt báo cáo cấp dưới",
+      "description": "Chuyển trạng thái báo cáo sang 4 (Báo cáo đã được duyệt)"
+    },
+    "FNC002_P04": {
+      "name": "Từ chối / Trả lại báo cáo",
+      "description": "Chuyển trạng thái báo cáo sang 5 (Bị từ chối / Cần nhập lại) kèm lý do từ chối"
+    },
+    "FNC002_P07": {
+      "name": "Yêu cầu đính chính số liệu",
+      "description": "Gửi thông báo yêu cầu đơn vị cấp dưới đính chính số liệu kèm nội dung ghi chú"
+    }
+  },
+  "function_codes": {
+    "FNC002": "Mã phân hệ quản lý danh sách và phê duyệt báo cáo",
+    "FNC003": "Mã phân hệ nhập liệu, tổng hợp số liệu và cấu trúc chỉ tiêu",
+    "FNC006": "Mã phân hệ quản lý phân công và theo dõi đơn vị báo cáo"
+  },
+  "rest_operations": {
+    "ajaxCALL_SP_O": "Thực thi Stored Procedure dạng truy vấn dữ liệu (Query SP)",
+    "ajaxCALL_SP_S": "Thực thi Stored Procedure dạng lưu/cập nhật dữ liệu (Save/Execute SP)",
+    "ajaxExecuteQueryO": "Thực thi câu lệnh SQL / View đã đăng ký trên hệ thống IOC"
+  }
+}

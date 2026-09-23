@@ -1,0 +1,74 @@
+# ==============================================================================
+# .gitignore cho Dự án VSR & VSRtool (.NET 10, C# 13, Avalonia UI, Python, IDEs)
+# ==============================================================================
+
+# --- Visual Studio & IDE Caches ---
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.launchSettings.json
+
+# --- .NET Build & Output Folders ---
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+*.log
+*.tmp
+*.temp
+
+# --- .NET / C# Generated Files ---
+*.pdb
+*.dll
+*.exe
+*.dylib
+*.so
+Generated_Code/
+_ReSharper*/
+
+# --- Avalonia / UI Artifacts ---
+*.DotSettings.user
+
+# --- Python Files & Virtual Environments ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+venv/
+.venv/
+env/
+.env
+ENV/
+*.egg-info/
+dist/
+build/
+
+# --- File Dữ Liệu Tạm, Backup, HAR & Scratch/Test Scripts ---
+Backup/
+backup/
+*.har
+har.txt
+*.bak
+*.swp
+*~
+thumbs.db
+desktop.ini
+
+# --- Tài Khoản & Thông Tin Bảo Mật Cục Bộ (Không đẩy thông tin đăng nhập lên Git) ---
+saved_account.json
+Account.json
+account.json
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+# --- Windows & OS Generated Files ---
+$RECYCLE.BIN/
+[Tt]humbs.db
+ehthumbs.db
+[Dd]esktop.ini

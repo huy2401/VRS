@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="460" d:DesignHeight="220"
+        x:Class="VSR.Views.ConfirmDeleteAccountDialog"
+        Title="Xác nhận xóa tài khoản"
+        Icon="/Assets/app.ico"
+        Width="460" Height="220"
+        MinWidth="420" MinHeight="200"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#F8FAFC">
+
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="MinHeight" Value="34"/>
+            <Setter Property="Height" Value="34"/>
+        </Style>
+
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#DC2626"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.danger:pointerover">
+            <Setter Property="Background" Value="#B91C1C"/>
+        </Style>
+
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover">
+            <Setter Property="Background" Value="#E2E8F0"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#FEF2F2" BorderBrush="#FECACA" BorderThickness="1" CornerRadius="8" Padding="12 10" Margin="0 0 0 12">
+            <Grid ColumnDefinitions="Auto,*">
+                <TextBlock Grid.Column="0" Text="⚠️" FontSize="20" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                    <TextBlock Text="XÁC NHẬN XÓA TÀI KHOẢN ĐÃ LƯU" FontSize="12" FontWeight="Bold" Foreground="#DC2626"/>
+                    <TextBlock Text="Thông tin tài khoản sẽ bị xóa khỏi danh sách đã lưu" FontSize="11" Foreground="#EF4444"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Message -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" Spacing="6">
+            <TextBlock Text="Bạn có chắc chắn muốn xóa tài khoản này khỏi danh sách đã lưu không?" 
+                       FontSize="13" Foreground="#1E293B" TextWrapping="Wrap"/>
+            <TextBlock Name="TxtAccountName" Text="Tài khoản: admin" 
+                       FontSize="13" FontWeight="Bold" Foreground="#1E40AF" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0 14 0 0">
+            <Button Classes="secondary" Content="Hủy bỏ" Click="OnCancelClick"/>
+            <Button Classes="danger" Content="Xóa tài khoản" Click="OnConfirmDeleteClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

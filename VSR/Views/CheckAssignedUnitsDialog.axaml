@@ -1,0 +1,273 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="using:VSR.Models"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="920" d:DesignHeight="600"
+        x:Class="VSR.Views.CheckAssignedUnitsDialog"
+        Title="Danh sách đơn vị gửi báo cáo"
+        Icon="/Assets/app.ico"
+        Width="920" Height="620"
+        MinWidth="780" MinHeight="450"
+        WindowStartupLocation="CenterOwner"
+        Background="#FFFFFF">
+
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#7C3AED"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#6D28D9"/>
+        </Style>
+
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover">
+            <Setter Property="Background" Value="#E2E8F0"/>
+        </Style>
+
+        <Style Selector="Button.tabBtn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#475569"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.tabBtn:pointerover">
+            <Setter Property="Foreground" Value="#2563EB"/>
+        </Style>
+        <Style Selector="Button.tabBtnActive">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#2563EB"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderBrush" Value="#2563EB"/>
+            <Setter Property="BorderThickness" Value="0 0 0 2"/>
+            <Setter Property="Padding" Value="8 4"/>
+        </Style>
+
+        <Style Selector="Button.downloadBtn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#C2410C"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.downloadBtn:pointerover">
+            <Setter Property="Background" Value="#FFF7ED"/>
+        </Style>
+
+        <!-- Header DataGrid Styling đồng bộ chuẩn theo ảnh: nền màu cam nhạt #F6ECE6, viền #E5D6CC, chữ đậm -->
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Background" Value="#F6ECE6"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#262626"/>
+            <Setter Property="MinHeight" Value="40"/>
+            <Setter Property="Padding" Value="8 6"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#E5D6CC"/>
+            <Setter Property="BorderThickness" Value="0 0 1 1"/>
+        </Style>
+
+        <Style Selector="DataGridRow">
+            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="BorderBrush" Value="#F0E8E2"/>
+            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+        </Style>
+        <Style Selector="DataGridRow:pointerover">
+            <Setter Property="Background" Value="#FAF5F0"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Margin="20 16 20 16">
+        
+        <!-- 1. Header Title & Subtitle chuẩn giao diện Web -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0 0 0 12">
+            <StackPanel Grid.Column="0" Spacing="4">
+                <TextBlock Text="Danh sách đơn vị gửi báo cáo" FontSize="17" FontWeight="Bold" Foreground="#1F2937"/>
+                <TextBlock Name="TxtSubtitle" Text="Biểu mẫu: [Tên biểu mẫu]   |   Kỳ: [Kỳ dữ liệu]" FontSize="12" Foreground="#6B7280"/>
+            </StackPanel>
+            <Button Grid.Column="1" Classes="secondary" Click="OnCloseClick" Width="32" Height="32" Padding="0" CornerRadius="16" BorderThickness="0" Background="#F3F4F6">
+                <TextBlock Text="✕" FontSize="13" Foreground="#6B7280" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Button>
+        </Grid>
+
+        <!-- 2. Search Box chuẩn giao diện Web -->
+        <Border Grid.Row="1" Margin="0 0 0 10">
+            <TextBox Name="TxtSearch"
+                     PlaceholderText="🔍  Nhập từ khóa tìm kiếm"
+                     FontSize="13"
+                     Height="36"
+                     VerticalContentAlignment="Center"
+                     Padding="12 0"
+                     BorderBrush="#E5E7EB"
+                     BorderThickness="1"
+                     CornerRadius="4"
+                     TextChanged="OnSearchTextChanged"/>
+        </Border>
+
+        <!-- 3. Filter Tabs & Download Action -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto" Margin="0 0 0 10" VerticalAlignment="Center">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+                <Button Name="BtnTabAll" Classes="tabBtn tabBtnActive" Click="OnTabAllClick">
+                    <TextBlock Name="TxtTabAll" Text="Tất cả"/>
+                </Button>
+                <Button Name="BtnTabSubmitted" Classes="tabBtn" Click="OnTabSubmittedClick">
+                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <Border Width="12" Height="12" Background="#16A34A" CornerRadius="1" VerticalAlignment="Center"/>
+                        <TextBlock Name="TxtTabSubmitted" Text="Đơn vị đã gửi" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="BtnTabPending" Classes="tabBtn" Click="OnTabPendingClick">
+                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <Border Width="12" Height="12" Background="#0284C7" CornerRadius="1" VerticalAlignment="Center"/>
+                        <TextBlock Name="TxtTabPending" Text="Đơn vị chưa gửi" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <!-- Download Button in Orange text/icon matching Image 1 -->
+            <Button Grid.Column="1" Classes="downloadBtn" Click="OnExportClick">
+                <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <TextBlock Text="📥" FontSize="13" Foreground="#C2410C" VerticalAlignment="Center"/>
+                    <TextBlock Text="Tải xuống" FontWeight="Medium" Foreground="#C2410C" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- 4. Bảng dữ liệu đúng 4 cột như ảnh: STT | Đơn vị | Ngày gửi | Trạng thái -->
+        <Border Grid.Row="3" BorderBrush="#E5D6CC" BorderThickness="1" Background="#FFFFFF">
+            <DataGrid Name="UnitsGrid"
+                      AutoGenerateColumns="False"
+                      GridLinesVisibility="All"
+                      BorderThickness="0"
+                      Background="#FFFFFF"
+                      CanUserResizeColumns="True"
+                      CanUserSortColumns="True"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    
+                    <!-- 1. STT -->
+                    <DataGridTemplateColumn Width="60">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="STT" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:AssignedUnitStatus">
+                                <TextBlock Text="{Binding Stt}" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" 
+                                           Foreground="#334155"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- 2. Đơn vị -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Đơn vị" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:AssignedUnitStatus">
+                                <TextBlock Text="{Binding UnitName}" 
+                                           HorizontalAlignment="Left" 
+                                           VerticalAlignment="Center" 
+                                           Margin="12 0"
+                                           Foreground="#1E293B"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- 3. Ngày gửi -->
+                    <DataGridTemplateColumn Width="140">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Ngày gửi" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:AssignedUnitStatus">
+                                <TextBlock Text="{Binding SubmitDate}" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" 
+                                           Foreground="#475569"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- 4. Trạng thái -->
+                    <DataGridTemplateColumn Width="320">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Trạng thái" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:AssignedUnitStatus">
+                                <TextBlock Text="{Binding StatusStr}" 
+                                           HorizontalAlignment="Left" 
+                                           VerticalAlignment="Center" 
+                                           Margin="12 0"
+                                           Foreground="#1E293B"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- 5. Footer Pagination & Actions -->
+        <Border Grid.Row="4" Margin="0 12 0 0">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                
+                <!-- Info count text: "Hiển thị các dòng từ 1 đến X trong tổng số Y dòng" -->
+                <TextBlock Grid.Column="0" 
+                           Name="TxtPaginationInfo"
+                           Text="Hiển thị các dòng từ 1 đến 14 trong tổng số 14 dòng" 
+                           FontSize="12" 
+                           Foreground="#6B7280" 
+                           VerticalAlignment="Center"/>
+
+                <Button Grid.Column="1" Classes="secondary" Click="OnCloseClick" Width="80" Height="34" Margin="0 0 8 0">
+                    <TextBlock Text="Đóng" FontWeight="Medium"/>
+                </Button>
+
+                <Button Grid.Column="2" Classes="primary" Background="#16A34A" Click="OnAggregateApprovedClick" Height="34" Margin="0 0 8 0">
+                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <TextBlock Text="⚡" FontSize="13" VerticalAlignment="Center"/>
+                        <TextBlock Text="Tổng hợp báo cáo đã duyệt" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Grid.Column="3" Classes="primary" Background="#7C3AED" Click="OnAggregateAllClick" Height="34">
+                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <TextBlock Text="⚡" FontSize="13" VerticalAlignment="Center"/>
+                        <TextBlock Text="Tổng hợp tất cả báo cáo" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

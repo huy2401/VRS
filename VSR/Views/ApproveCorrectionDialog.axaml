@@ -1,0 +1,160 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="using:VSR.Models"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="620" d:DesignHeight="480"
+        x:Class="VSR.Views.ApproveCorrectionDialog"
+        Title="Xử lý yêu cầu đính chính"
+        Icon="/Assets/app.ico"
+        Width="620" Height="480"
+        MinWidth="540" MinHeight="420"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#F8FAFC">
+
+    <Window.Styles>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BoxShadow" Value="0 4 16 0 #0F000000"/>
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="MinHeight" Value="38"/>
+            <Setter Property="Height" Value="38"/>
+        </Style>
+
+        <!-- Nút Đồng ý: Màu xanh lá đậm -->
+        <Style Selector="Button.agree">
+            <Setter Property="Background" Value="#16A34A"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.agree:pointerover">
+            <Setter Property="Background" Value="#15803D"/>
+        </Style>
+
+        <!-- Nút Không đồng ý: Màu đỏ / cam đậm -->
+        <Style Selector="Button.disagree">
+            <Setter Property="Background" Value="#DC2626"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.disagree:pointerover">
+            <Setter Property="Background" Value="#B91C1C"/>
+        </Style>
+
+        <!-- Nút Hủy / Đóng -->
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="14 0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover">
+            <Setter Property="Background" Value="#E2E8F0"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        
+        <!-- Header Bar -->
+        <Border Grid.Row="0" Background="#FFF7ED" BorderBrush="#FED7AA" BorderThickness="1" CornerRadius="8" Padding="14 10" Margin="0 0 0 14">
+            <Grid ColumnDefinitions="Auto,*">
+                <TextBlock Grid.Column="0" Text="📝" FontSize="22" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                    <TextBlock Text="XỬ LÝ YÊU CẦU ĐÍNH CHÍNH BÁO CÁO" FontSize="14" FontWeight="Bold" Foreground="#C2410C" VerticalAlignment="Center"/>
+                    <TextBlock Text="Lựa chọn phương án phê duyệt hoặc từ chối yêu cầu xin đính chính số liệu" FontSize="11" Foreground="#EA580C"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Body Form -->
+        <Border Grid.Row="1" Classes="card" Padding="16">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="10">
+                    <!-- Thông tin biểu mẫu -->
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto" Margin="0 0 0 4">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Biểu mẫu:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 2 10 2"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Name="TxtReportName" Text="[Tên biểu mẫu]" FontWeight="Bold" Foreground="#0F172A" FontSize="12" TextWrapping="Wrap" Margin="0 2 0 2"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Kỳ dữ liệu:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 2 10 2"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Name="TxtPeriod" Text="[Kỳ dữ liệu]" FontWeight="Medium" Foreground="#1E293B" FontSize="12" Margin="0 2 0 2"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Đơn vị báo cáo:" FontWeight="SemiBold" Foreground="#64748B" FontSize="12" Margin="0 2 10 2"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Name="TxtOrg" Text="[Đơn vị]" FontWeight="Medium" Foreground="#1E293B" FontSize="12" Margin="0 2 0 2"/>
+                    </Grid>
+
+                    <Separator Height="1" Background="#E2E8F0"/>
+
+                    <!-- Lý do xin đính chính từ đơn vị cấp dưới -->
+                    <StackPanel Spacing="4" Name="PnlRequestReason">
+                        <TextBlock Text="Lý do xin đính chính của đơn vị:" FontWeight="SemiBold" Foreground="#475569" FontSize="12"/>
+                        <Border Background="#FEF2F2" BorderBrush="#FECACA" BorderThickness="1" CornerRadius="6" Padding="10 8">
+                            <TextBlock Name="TxtRequestReason" Text="Đơn vị gửi yêu cầu mở lại quyền chỉnh sửa để đính chính số liệu." FontSize="12" Foreground="#991B1B" TextWrapping="Wrap"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Ý kiến phản hồi khi xử lý (tùy chọn) -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Ý kiến / Ghi chú phản hồi (tùy chọn):" FontWeight="SemiBold" Foreground="#475569" FontSize="12"/>
+                        <TextBox Name="TxtResponseNote" 
+                                 AcceptsReturn="True" 
+                                 TextWrapping="Wrap" 
+                                 Height="68" 
+                                 PlaceholderText="Nhập nội dung ý kiến phản hồi gửi về cho đơn vị..."
+                                 FontSize="12"/>
+                    </StackPanel>
+
+                    <!-- Hướng dẫn lựa chọn -->
+                    <Border Background="#F1F5F9" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="6" Padding="10 8">
+                        <StackPanel Spacing="3">
+                            <TextBlock Text="💡 Hướng dẫn phương án xử lý:" FontWeight="Bold" FontSize="11" Foreground="#334155"/>
+                            <TextBlock Text="• Đồng ý: Trả lại báo cáo cho đơn vị giao/báo cáo để chỉnh sửa lại số liệu. Báo cáo sẽ biến mất khỏi danh sách duyệt." FontSize="11" Foreground="#475569" TextWrapping="Wrap"/>
+                            <TextBlock Text="• Không đồng ý: Báo cáo vẫn giữ nguyên trạng thái Đã duyệt, nút yêu cầu đính chính trên báo cáo sẽ được gỡ bỏ." FontSize="11" Foreground="#475569" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Footer Actions -->
+        <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto,Auto" Margin="0 14 0 0">
+            <!-- Nút Hủy / Đóng bên trái -->
+            <Button Grid.Column="0" Classes="secondary" Click="OnCancelClick" Width="80" Height="38">
+                <TextBlock Text="Đóng" FontWeight="Medium"/>
+            </Button>
+
+            <!-- Nút Không đồng ý -->
+            <Button Grid.Column="2" Classes="disagree" Click="OnDisagreeClick" MinWidth="150" Height="38" Margin="0 0 10 0">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="❌" FontSize="12" VerticalAlignment="Center"/>
+                    <TextBlock Text="Không đồng ý" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Nút Đồng ý -->
+            <Button Grid.Column="3" Classes="agree" Click="OnAgreeClick" MinWidth="180" Height="38">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="✅" FontSize="12" VerticalAlignment="Center"/>
+                    <TextBlock Text="Đồng ý (Trả lại đơn vị)" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>

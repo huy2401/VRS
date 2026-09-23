@@ -1,0 +1,561 @@
+{
+  "reports": {
+    "CT53_TUAN": "10634622",
+    "CT53_THANG": "10634624",
+    "CT53_QUY": "10634625",
+    "CT53_6THANG": "10634670",
+    "CT53_NAM": "10634626",
+    "CT57_TUAN": "10634622",
+    "CT57_THANG": "10634624",
+    "CT57_QUY": "10634625",
+    "CT57_6THANG": "10634670",
+    "CT57_NAM": "10634626",
+    "CTKTXH_NGAY": "10634610",
+    "CTKTXH_TUAN": "10634856",
+    "CTKTXH_THANG": "10634850",
+    "CTKTXH_QUY": "10634599",
+    "CTKTXH_6THANG": "10634602",
+    "CTKTXH_NAM": "10634604",
+    "CTKTXH_CHITIEU": "10634934",
+    "NQ66_THANG": "10634671",
+    "NQ59_THANG": "10634657",
+    "BCSTU-MTTQ-HĐND_THANG": "10634871",
+    "BCSTU-MTTQ-HĐND_QUY": "10634872",
+    "BCSTU-MTTQ-HĐND_6THANG": "10634873",
+    "BCSTU-MTTQ-HĐND_NAM": "10634874"
+  },
+  "organizations": {
+    "Tỉnh Hà Tĩnh": "3105323",
+    "Văn phòng ủy ban nhân dân tỉnh": "23299495",
+    "Cục thuế": "23301004",
+    "Sở tài chính": "23299491",
+    "Sở nội vụ": "23299487",
+    "Cục thống kê": "23300993",
+    "Sở công thương": "23299489",
+    "Sở văn hóa": "23299490",
+    "Sở nông nghiệp": "23299494",
+    "Sở y tế": "23299485",
+    "BHXH Tỉnh": "23300995",
+    "Sở giáo dục": "23299484",
+    "Sở xây dựng": "23299492",
+    "Ban Quản lý KKT": "23300992",
+    "Chi cục Hải quan Khu vực XI": "23300996",
+    "Sở tư pháp": "23299488",
+    "Công an tỉnh": "23308700",
+    "Bộ Chỉ huy Quân sự tỉnh": "23300998",
+    "Sở Khoa học và Công nghệ": "23300999",
+    "Tỉnh ủy": "23308725",
+    "MTTQ": "23308726",
+    "HĐND": "23308727",
+    "Thanh tra tỉnh": "23299486",
+    "Sở Ngoại vụ": "23299496"
+  },
+  "periods": {
+    "Báo cáo ngày": "713",
+    "Báo cáo tuần": "707",
+    "Báo cáo tháng": "282",
+    "Báo cáo quý": "1079",
+    "Báo cáo 6 tháng": "712",
+    "Báo cáo năm": "284"
+  },
+  "report_types": {
+    "Nhập liệu": "1",
+    "Tổng hợp cha con": "3"
+  },
+  "default_assignees": {
+    "CTKTXH_NGAY": [
+      "Sở Nông nghiệp và Môi trường",
+      "Văn phòng UBND tỉnh"
+    ],
+    "CTKTXH_TUAN": [
+      "Công an tỉnh",
+      "Sở Tài Chính",
+      "Văn phòng UBND tỉnh"
+    ],
+    "CTKTXH_THANG": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Ban Quản lý Khu kinh tế tỉnh",
+      "Công an tỉnh",
+      "Cục Thuế",
+      "Cục Thống kê",
+      "Sở Công thương",
+      "Sở Nông nghiệp và Môi trường",
+      "Sở Nội vụ",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch",
+      "Sở xây dựng",
+      "Sở Y tế",
+      "Thanh tra tỉnh",
+      "Văn phòng UBND tỉnh"
+    ],
+    "CTKTXH_QUY": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Cục Thống kê",
+      "Sở Công thương",
+      "Sở Nông nghiệp và Môi trường",
+      "Sở Nội vụ",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch"
+    ],
+    "CTKTXH_6THANG": [
+      "Cục Thống kê",
+      "Sở Công thương",
+      "Sở Giáo dục và Đào tạo"
+    ],
+    "CTKTXH_NAM": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Cục Thống kê",
+      "Sở Công thương",
+      "Sở Giáo dục và Đào tạo",
+      "Sở Nông nghiệp và Môi trường",
+      "Sở Nội vụ",
+      "Sở Tài Chính",
+      "Sở Y tế"
+    ],
+    "CTKTXH_CHITIEU": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Ban Quản lý Khu kinh tế tỉnh",
+      "Công an tỉnh",
+      "Cục Thuế",
+      "Cục Thống kê",
+      "Sở Công thương",
+      "Sở Giáo dục và Đào tạo",
+      "Sở Nông nghiệp và Môi trường",
+      "Sở Nội vụ",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch",
+      "Sở xây dựng",
+      "Sở Y tế",
+      "Thanh tra tỉnh",
+      "Văn phòng UBND tỉnh"
+    ],
+    "CT53_TUAN": [],
+    "CT53_THANG": [
+      "Cục Thống kê",
+      "Sở Công thương",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch"
+    ],
+    "CT53_QUY": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Cục Thống kê",
+      "Sở Công thương",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch"
+    ],
+    "CT53_6THANG": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Cục Thống kê",
+      "Sở Công thương",
+      "Sở Giáo dục và Đào tạo",
+      "Sở Nông nghiệp và Môi trường",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch"
+    ],
+    "CT53_NAM": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Ban Quản lý Khu kinh tế tỉnh",
+      "Bộ chỉ huy quân sự tỉnh",
+      "Chi cục Hải quan Khu vực XI",
+      "Công an tỉnh",
+      "Cục Thuế",
+      "Cục Thống kê",
+      "Sở Khoa học và Công nghệ",
+      "Sở Công thương",
+      "Sở Giáo dục và Đào tạo",
+      "Sở Nông nghiệp và Môi trường",
+      "Sở Nội vụ",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch",
+      "Sở xây dựng",
+      "Sở Y tế"
+    ],
+    "CT57_TUAN": [
+      "Ban Quản lý Khu kinh tế tỉnh",
+      "Chi cục Hải quan Khu vực XI",
+      "Cục Thuế",
+      "Cục Thống kê",
+      "Sở Khoa học và Công nghệ",
+      "Sở Công thương",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch",
+      "Sở xây dựng"
+    ],
+    "CT57_THANG": [
+      "Ban Quản lý Khu kinh tế tỉnh",
+      "Chi cục Hải quan Khu vực XI",
+      "Cục Thuế",
+      "Cục Thống kê",
+      "Sở Khoa học và Công nghệ",
+      "Sở Công thương",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch",
+      "Sở xây dựng"
+    ],
+    "CT57_QUY": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Ban Quản lý Khu kinh tế tỉnh",
+      "Chi cục Hải quan Khu vực XI",
+      "Cục Thuế",
+      "Cục Thống kê",
+      "Sở Khoa học và Công nghệ",
+      "Sở Công thương",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch",
+      "Sở xây dựng"
+    ],
+    "CT57_6THANG": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Ban Quản lý Khu kinh tế tỉnh",
+      "Chi cục Hải quan Khu vực XI",
+      "Cục Thuế",
+      "Cục Thống kê",
+      "Sở Khoa học và Công nghệ",
+      "Sở Công thương",
+      "Sở Giáo dục và Đào tạo",
+      "Sở Nông nghiệp và Môi trường",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch",
+      "Sở xây dựng",
+      "Sở Y tế"
+    ],
+    "NQ66_THANG": [
+      "Sở Tư pháp"
+    ],
+    "NQ59_THANG": [
+      "Sở Ngoại vụ"
+    ],
+    "CT57_NAM": [
+      "Bảo hiểm Xã hội tỉnh",
+      "Ban Quản lý Khu kinh tế tỉnh",
+      "Bộ chỉ huy quân sự tỉnh",
+      "Chi cục Hải quan Khu vực XI",
+      "Công an tỉnh",
+      "Cục Thuế",
+      "Cục Thống kê",
+      "Sở Khoa học và Công nghệ",
+      "Sở Công thương",
+      "Sở Giáo dục và Đào tạo",
+      "Sở Nông nghiệp và Môi trường",
+      "Sở Nội vụ",
+      "Sở Tài Chính",
+      "Sở Văn hóa, Thể thao và Du lịch",
+      "Sở xây dựng",
+      "Sở Y tế"
+    ],
+    "BCSTU-MTTQ-HĐND_THANG": [
+      "Hội đồng nhân dân",
+      "Mặt trận tổ quốc",
+      "Tỉnh ủy"
+    ],
+    "BCSTU-MTTQ-HĐND_QUY": [
+      "Hội đồng nhân dân",
+      "Mặt trận tổ quốc",
+      "Tỉnh ủy"
+    ],
+    "BCSTU-MTTQ-HĐND_6THANG": [
+      "Hội đồng nhân dân",
+      "Mặt trận tổ quốc",
+      "Tỉnh ủy"
+    ],
+    "BCSTU-MTTQ-HĐND_NAM": [
+      "Hội đồng nhân dân",
+      "Mặt trận tổ quốc",
+      "Tỉnh ủy"
+    ],
+    "CT53_NGAY": [],
+    "CT57_NGAY": []
+  },
+  "report_periods": {
+    "CTKTXH_NGAY": "Báo cáo ngày",
+    "CTKTXH_TUAN": "Báo cáo tuần",
+    "CTKTXH_THANG": "Báo cáo tháng",
+    "CTKTXH_QUY": "Báo cáo quý",
+    "CTKTXH_6THANG": "Báo cáo 6 tháng",
+    "CTKTXH_NAM": "Báo cáo năm",
+    "CTKTXH_CHITIEU": "Báo cáo năm",
+    "CT53_TUAN": "Báo cáo tuần",
+    "CT53_THANG": "Báo cáo tháng",
+    "CT53_QUY": "Báo cáo quý",
+    "CT53_6THANG": "Báo cáo 6 tháng",
+    "CT53_NAM": "Báo cáo năm",
+    "CT57_TUAN": "Báo cáo tuần",
+    "CT57_THANG": "Báo cáo tháng",
+    "CT57_QUY": "Báo cáo quý",
+    "CT57_6THANG": "Báo cáo 6 tháng",
+    "NQ66_THANG": "Báo cáo tháng",
+    "NQ59_THANG": "Báo cáo tháng",
+    "CT57_NAM": "Báo cáo năm",
+    "BCSTU-MTTQ-HĐND_THANG": "Báo cáo tháng",
+    "BCSTU-MTTQ-HĐND_QUY": "Báo cáo quý",
+    "BCSTU-MTTQ-HĐND_6THANG": "Báo cáo 6 tháng",
+    "BCSTU-MTTQ-HĐND_NAM": "Báo cáo năm"
+  },
+  "report_columns": {
+    "CTKTXH_NGAY": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH00",
+        "desc": "Giá trị"
+      },
+      {
+        "source_col": "Giá trị TB cả nước",
+        "fld_code": "FN03",
+        "attr_code": "CTKTXH01",
+        "desc": "Giá trị TB cả nước"
+      },
+      {
+        "source_col": "Ngưỡng cảnh báo",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH02",
+        "desc": "Ngưỡng cảnh báo"
+      }
+    ],
+    "CTKTXH_TUAN": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH00",
+        "desc": "Giá trị"
+      },
+      {
+        "source_col": "Giá trị TB cả nước",
+        "fld_code": "FN03",
+        "attr_code": "CTKTXH01",
+        "desc": "Giá trị TB cả nước"
+      },
+      {
+        "source_col": "Ngưỡng cảnh báo",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH02",
+        "desc": "Ngưỡng cảnh báo"
+      }
+    ],
+    "CTKTXH_THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH00",
+        "desc": "Giá trị"
+      },
+      {
+        "source_col": "Giá trị TB cả nước",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH01",
+        "desc": "Giá trị TB cả nước"
+      },
+      {
+        "source_col": "Ngưỡng cảnh báo",
+        "fld_code": "FN03",
+        "attr_code": "CTKTXH02",
+        "desc": "Ngưỡng cảnh báo"
+      }
+    ],
+    "CTKTXH_QUY": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH00",
+        "desc": "Giá trị"
+      },
+      {
+        "source_col": "Giá trị TB cả nước",
+        "fld_code": "FN03",
+        "attr_code": "CTKTXH01",
+        "desc": "Giá trị TB cả nước"
+      },
+      {
+        "source_col": "Ngưỡng cảnh báo",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH02",
+        "desc": "Ngưỡng cảnh báo"
+      }
+    ],
+    "CTKTXH_6THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN03",
+        "attr_code": "CTKTXH00",
+        "desc": "Giá trị"
+      },
+      {
+        "source_col": "Giá trị TB cả nước",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH01",
+        "desc": "Giá trị TB cả nước"
+      },
+      {
+        "source_col": "Ngưỡng cảnh báo",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH02",
+        "desc": "Ngưỡng cảnh báo"
+      }
+    ],
+    "CTKTXH_NAM": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN03",
+        "attr_code": "CTKTXH00",
+        "desc": "Giá trị"
+      },
+      {
+        "source_col": "Giá trị TB cả nước",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH01",
+        "desc": "Giá trị TB cả nước"
+      },
+      {
+        "source_col": "Ngưỡng cảnh báo",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH02",
+        "desc": "Ngưỡng cảnh báo"
+      }
+    ],
+    "CTKTXH_CHITIEU": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH00",
+        "desc": "Chỉ tiêu năm"
+      }
+    ],
+    "CT53_TUAN": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CT57",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT53_THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT53_QUY": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CT57",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT53_6THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CT57",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT53_NAM": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CT57",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT57_TUAN": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CT57",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT57_THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CTKTXH",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT57_QUY": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CT57",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT57_6THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CT57",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "CT57_NAM": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN01",
+        "attr_code": "CT57",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "NQ66_THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "NQ59_THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "BCSTU-MTTQ-HĐND_THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "BCSTU-MTTQ-HĐND_QUY": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "BCSTU-MTTQ-HĐND_6THANG": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH",
+        "desc": "Giá trị thực hiện"
+      }
+    ],
+    "BCSTU-MTTQ-HĐND_NAM": [
+      {
+        "source_col": "Giá trị",
+        "fld_code": "FN02",
+        "attr_code": "CTKTXH",
+        "desc": "Giá trị thực hiện"
+      }
+    ]
+  },
+  "uuid": "950bd7d0-a890-4aeb-afd4-57a388fda2d1",
+  "api_url": "https://baocao.hatinh.gov.vn/ioc/RestService",
+  "cookie": "JSESSIONID=F3D067059D795F80F03B8548B6EED877; token=eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9BRE1JTiIsInN1YiI6IkhBVElOSC5BRE0xIiwiaWF0IjoxNzg5MTA5NzM5LCJleHAiOjE3ODkxMjc3MzksInN5c2lkIjoiODUiLCJyb2xlIjoibnVsbCIsIm9yZ19pZCI6IjMxMDUzMjMifQ.p08TAieS7Y8CIfIjKWv2Im_izXL1s-XcoWt1XH1shHwZuihUG0bhVeZBz46h6pJe4HrcahwBt1cEvtQRQ-znDQ; nd=MTguMTItODA=; TS01badd74=012b75ff9cf22c13c15127364c2165086894da23d83cbabfde12da88ae6a991ba4029e1dcde0a7d758bdcd6525a2bb96ddd2560d5cb6e7ccd70b6e62eec5addad21443a0ea3edbbc4c34a9c3388f275b41db5274be0d8667323849f56886b074ea83ed2fd7399b9829fe66c0e2ee08b42631334c58; _ga=GA1.1.1964521129.1781921720; _ga_0G0QCX615Q=GS2.1.s1781923910$o2$g0$t1781923910$j60$l0$h0; SESSIONID=!wqYUncWyvVTIWxl1nXdznSBmexNu786vQW45pVI3wHu14KEIseRcAXa9TmWJPZHBmPjvI/eHfF9GLw==; TS01df1866=012b75ff9cf7989cf0b01f07022fb6834059becbe9205dddfb2fb692413726c6e61172e9907bb55b2d33bd46b6b58c9363538acd68d917b198fcc10f72b6729cb91cece72d",
+  "api_ioc_config": {
+    "api_url": "https://report.vnsr.vn/IOC_WS/ws_recvMsgServlet",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJoYXRpbmhAMTIzIiwibmFtZSI6ImhhdGluaC5zeW5jIiwiaWF0IjoxNTE2MjM5MDExNjgsInRlbmFudF9pZCI6ODV9.m85eHSTickKAkLSUQ9tiUVfPYjNwntE5R2MtLJv0zGk",
+    "cookie": "SESSIONID=!KRBrU2loOlRAf2d1nXdznSBmexNu786vQW45pVI3wHu14KEIseRcAXa9TmWJPZHBmPjvI/eHfF9GLw==; TS01df1866=012b75ff9c51849ad4522b844f5ab72879fb89b88860cc2dd44aa16d481b73aab2d76b1454060c8e8ba2791ea7b40513fef83c4968a4ce0e6c599d1c87e77d9ea3c465b3d7",
+    "timeout": 30
+  }
+}

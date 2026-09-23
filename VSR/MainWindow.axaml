@@ -1,0 +1,1312 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VSR.ViewModels"
+        xmlns:models="using:VSR.Models"
+        xmlns:helpers="using:VSR.Helpers"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="780"
+        x:Class="VSR.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Name="RootWindow"
+        Title="Phần Mềm Hỗ Trợ Nhập Liệu Báo Cáo IOC Hà Tĩnh"
+        Icon="/Assets/app.ico"
+        Width="1250" Height="800"
+        MinWidth="950" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="#F8FAFC">
+
+    <Window.Styles>
+        <!-- Card Style -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BoxShadow" Value="0 4 16 0 #0F000000"/>
+        </Style>
+
+        <!-- Primary Button -->
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#1E40AF"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="16 10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#1D4ED8"/>
+        </Style>
+
+        <!-- Secondary Button -->
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="12 8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover">
+            <Setter Property="Background" Value="#E2E8F0"/>
+        </Style>
+
+        <!-- Danger Button -->
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#FEE2E2"/>
+            <Setter Property="Foreground" Value="#DC2626"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="BorderBrush" Value="#FECACA"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="12 8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.danger:pointerover">
+            <Setter Property="Background" Value="#FCA5A5"/>
+        </Style>
+
+        <!-- Sidebar Navigation Buttons -->
+        <Style Selector="Button.nav-item">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14 12"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.nav-item:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#0F000000"/>
+        </Style>
+        <!-- Action Edit Button (Icon cây bút ✏️ - Mục 1) -->
+        <Style Selector="Button.action-edit-btn">
+            <Setter Property="Background" Value="#FFF7ED"/>
+            <Setter Property="Foreground" Value="#EA580C"/>
+            <Setter Property="BorderBrush" Value="#FED7AA"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.action-edit-btn:pointerover">
+            <Setter Property="Background" Value="#FFEDD5"/>
+            <Setter Property="BorderBrush" Value="#F97316"/>
+        </Style>
+
+        <!-- Action View Button (Icon con mắt 👁️ - Mục 2 & 3) -->
+        <Style Selector="Button.action-view-btn">
+            <Setter Property="Background" Value="#EFF6FF"/>
+            <Setter Property="Foreground" Value="#1D4ED8"/>
+            <Setter Property="BorderBrush" Value="#BFDBFE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.action-view-btn:pointerover">
+            <Setter Property="Background" Value="#DBEAFE"/>
+            <Setter Property="BorderBrush" Value="#3B82F6"/>
+        </Style>
+
+        <!-- Action Send Button (Icon gửi báo cáo ✈️ - Mục 2) -->
+        <Style Selector="Button.action-send-btn">
+            <Setter Property="Background" Value="#F0FDF4"/>
+            <Setter Property="Foreground" Value="#15803D"/>
+            <Setter Property="BorderBrush" Value="#BBF7D0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.action-send-btn:pointerover">
+            <Setter Property="Background" Value="#DCFCE7"/>
+            <Setter Property="BorderBrush" Value="#16A34A"/>
+        </Style>
+
+        <!-- Action Approve Button (Icon duyệt báo cáo ✅ - Mục 4) -->
+        <Style Selector="Button.action-approve-btn">
+            <Setter Property="Background" Value="#F0FDF4"/>
+            <Setter Property="Foreground" Value="#15803D"/>
+            <Setter Property="BorderBrush" Value="#86EFAC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.action-approve-btn:pointerover">
+            <Setter Property="Background" Value="#DCFCE7"/>
+            <Setter Property="BorderBrush" Value="#16A34A"/>
+        </Style>
+
+        <!-- Action Reject Button (Icon từ chối 🚫 - Mục 2) -->
+        <Style Selector="Button.action-reject-btn">
+            <Setter Property="Background" Value="#FEF2F2"/>
+            <Setter Property="Foreground" Value="#DC2626"/>
+            <Setter Property="BorderBrush" Value="#FECACA"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.action-reject-btn:pointerover">
+            <Setter Property="Background" Value="#FEE2E2"/>
+            <Setter Property="BorderBrush" Value="#EF4444"/>
+        </Style>
+
+        <!-- Action Message / Opinion Button (Icon tin nhắn 💬) -->
+        <Style Selector="Button.action-msg-btn">
+            <Setter Property="Background" Value="#F5F3FF"/>
+            <Setter Property="Foreground" Value="#7C3AED"/>
+            <Setter Property="BorderBrush" Value="#DDD6FE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.action-msg-btn:pointerover">
+            <Setter Property="Background" Value="#EDE9FE"/>
+            <Setter Property="BorderBrush" Value="#8B5CF6"/>
+        </Style>
+
+        <!-- Action Revert / Correction Request Button (Icon mũi tên quay ngược 🔄 - Mục 3) -->
+        <Style Selector="Button.action-revert-btn">
+            <Setter Property="Background" Value="#FFF7ED"/>
+            <Setter Property="Foreground" Value="#EA580C"/>
+            <Setter Property="BorderBrush" Value="#FED7AA"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.action-revert-btn:pointerover">
+            <Setter Property="Background" Value="#FFEDD5"/>
+            <Setter Property="BorderBrush" Value="#F97316"/>
+        </Style>
+
+        <!-- Action Approve Correction Button (Icon Duyệt yêu cầu đính chính 📝 - Mục 4) -->
+        <Style Selector="Button.action-approve-correction-btn">
+            <Setter Property="Background" Value="#EFF6FF"/>
+            <Setter Property="Foreground" Value="#2563EB"/>
+            <Setter Property="BorderBrush" Value="#93C5FD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.action-approve-correction-btn:pointerover">
+            <Setter Property="Background" Value="#DBEAFE"/>
+            <Setter Property="BorderBrush" Value="#1D4ED8"/>
+        </Style>
+
+        <!-- DropDownButton Style (Ô ComboBox chọn biểu mẫu có tìm kiếm) -->
+        <Style Selector="DropDownButton">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="10 0"/>
+            <Setter Property="MinHeight" Value="34"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="DropDownButton:pointerover">
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="BorderBrush" Value="#94A3B8"/>
+        </Style>
+
+        <!-- FlyoutPresenter Style (Bỏ giới hạn MaxWidth mặc định của Flyout để danh sách mở rộng bằng ô ComboBox) -->
+        <Style Selector="FlyoutPresenter">
+            <Setter Property="MaxWidth" Value="2500"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+
+        <!-- ComboBox Base Style -->
+        <Style Selector="ComboBox">
+            <Setter Property="MinHeight" Value="34"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10 0"/>
+        </Style>
+
+        <!-- TextBox Style -->
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="MinHeight" Value="34"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- DataGrid Header Base Styling với ControlTemplate tối ưu triệt tiêu không gian thừa và đảm bảo line ngăn cách cột luôn hiển thị rõ nét -->
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="MinHeight" Value="38"/>
+            <Setter Property="Padding" Value="8 6"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="UseLayoutRounding" Value="True"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Panel Background="{TemplateBinding Background}">
+                        <!-- Header Content & Sort Indicator -->
+                        <DockPanel Margin="{TemplateBinding Padding}" LastChildFill="True">
+                            <Path Name="SortIcon"
+                                  DockPanel.Dock="Right"
+                                  IsVisible="False"
+                                  Width="8" Height="5"
+                                  Stretch="Fill"
+                                  Margin="6 0 0 0"
+                                  VerticalAlignment="Center"/>
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </DockPanel>
+
+                        <!-- Left vertical separator (always 1px solid #CBD5E1, ZIndex 10) -->
+                        <Rectangle x:Name="HeaderLeftLine"
+                                   Width="1" 
+                                   Fill="#CBD5E1" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Stretch"
+                                   IsHitTestVisible="False"
+                                   ZIndex="10"/>
+
+                        <!-- Right vertical separator (always 1px solid #CBD5E1, ZIndex 10) -->
+                        <Rectangle x:Name="HeaderRightLine"
+                                   Width="1" 
+                                   Fill="#CBD5E1" 
+                                   HorizontalAlignment="Right" 
+                                   VerticalAlignment="Stretch"
+                                   IsHitTestVisible="False"
+                                   ZIndex="10"/>
+
+                        <!-- Bottom horizontal separator (always 1px solid #CBD5E1, ZIndex 10) -->
+                        <Rectangle x:Name="HeaderBottomLine"
+                                   Height="1" 
+                                   Fill="#CBD5E1" 
+                                   VerticalAlignment="Bottom" 
+                                   HorizontalAlignment="Stretch"
+                                   IsHitTestVisible="False"
+                                   ZIndex="10"/>
+                    </Panel>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <!-- Khi đang sort tăng dần (Sort Ascending): Mũi tên hướng lên màu xanh -->
+        <Style Selector="DataGridColumnHeader:sortascending /template/ Path#SortIcon">
+            <Setter Property="IsVisible" Value="True"/>
+            <Setter Property="Data" Value="M 0 5 L 4 0 L 8 5 Z"/>
+            <Setter Property="Fill" Value="#2563EB"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <!-- Khi đang sort giảm dần (Sort Descending): Mũi tên hướng xuống màu xanh -->
+        <Style Selector="DataGridColumnHeader:sortdescending /template/ Path#SortIcon">
+            <Setter Property="IsVisible" Value="True"/>
+            <Setter Property="Data" Value="M 0 0 L 4 5 L 8 0 Z"/>
+            <Setter Property="Fill" Value="#2563EB"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid>
+        <!-- ============================================================ -->
+        <!-- 1. MÀN HÌNH ĐĂNG NHẬP (Hiển thị khi IsLoggedIn == false)     -->
+        <!-- ============================================================ -->
+        <Grid IsVisible="{Binding !IsLoggedIn}" Background="#F1F5F9">
+            <Border Classes="card" Width="490" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="32">
+                <StackPanel Spacing="16">
+                    <!-- Header -->
+                    <StackPanel Spacing="6" HorizontalAlignment="Center">
+                        <TextBlock Text="🏛️ HỆ THỐNG IOC HÀ TĨNH" FontSize="20" FontWeight="Bold" Foreground="#1E3A8A" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Phần mềm hỗ trợ tự động nhập liệu &amp; Quản lý báo cáo" FontSize="12" Foreground="#64748B" HorizontalAlignment="Center"/>
+                        <Border Background="#EFF6FF" CornerRadius="12" Padding="10 3" HorizontalAlignment="Center" Margin="0 4 0 0">
+                            <TextBlock Text="{Binding AppVersionDisplay}" FontSize="11" FontWeight="SemiBold" Foreground="#2563EB"/>
+                        </Border>
+                    </StackPanel>
+
+                    <Separator Height="1" Background="#E2E8F0" Margin="0 4"/>
+
+                    <!-- Update Notice (Nếu có bản mới) - Bấm để mở lại cửa sổ cập nhật -->
+                    <Border IsVisible="{Binding HasUpdate}"
+                            Background="#FEF3C7"
+                            BorderBrush="#FCD34D"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="12 9"
+                            Cursor="Hand"
+                            ToolTip.Tip="Bấm vào đây để tải và cập nhật phiên bản mới"
+                            PointerPressed="OnUpdateBannerPointerPressed">
+                        <Border.Styles>
+                            <Style Selector="Border:pointerover">
+                                <Setter Property="Background" Value="#FDE68A"/>
+                            </Style>
+                        </Border.Styles>
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <TextBlock Grid.Column="0" Text="🔔" FontSize="15" Margin="0 0 8 0" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding UpdateMessage}" FontSize="12" FontWeight="SemiBold" Foreground="#B45309" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            <Border Grid.Column="2" Background="#2563EB" CornerRadius="6" Padding="8 4" Margin="8 0 0 0" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                    <TextBlock Text="📥" FontSize="12" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Cập nhật" FontSize="11" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Username with Browser-like Dropdown Autofill (Popup bên dưới ô nhập) -->
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Tên đăng nhập:" FontSize="12" FontWeight="SemiBold" Foreground="#475569"/>
+                        <Grid>
+                            <!-- Ô nhập tên đăng nhập chính -->
+                            <TextBox Name="TxtUsername"
+                                     Text="{Binding LoginVM.Username, Mode=TwoWay}" 
+                                     PlaceholderText="Nhập tên đăng nhập..."
+                                     IsEnabled="{Binding LoginVM.CanLogin}"
+                                     PointerPressed="OnUsernamePointerPressed"
+                                     GotFocus="OnUsernameGotFocus"
+                                     LostFocus="OnUsernameLostFocus"
+                                     TextChanged="OnUsernameTextChanged"/>
+
+                            <!-- Menu Gợi ý Autofill thả xuống ngay phía dưới ô nhập (Như trình duyệt ở ảnh 2 và 3) -->
+                            <Popup Name="AccountSuggestionPopup"
+                                   IsOpen="{Binding LoginVM.IsAccountDropdownOpen, Mode=TwoWay}"
+                                   PlacementTarget="{Binding #TxtUsername}"
+                                   Placement="BottomEdgeAlignedLeft"
+                                   IsLightDismissEnabled="True">
+                                <Border Width="{Binding #TxtUsername.Bounds.Width}"
+                                        MinWidth="380"
+                                        MaxHeight="260"
+                                        Background="#1E293B"
+                                        BorderBrush="#334155"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        BoxShadow="0 8 24 0 #40000000"
+                                        Margin="0 4 0 0"
+                                        Padding="4">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <ItemsControl ItemsSource="{Binding LoginVM.FilteredSavedAccounts}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="models:AccountCredential">
+                                                    <Border Background="Transparent"
+                                                            CornerRadius="6"
+                                                            Padding="10 8"
+                                                            Margin="2"
+                                                            Cursor="Hand"
+                                                            PointerPressed="OnSelectSavedAccountPointerPressed">
+                                                        <Border.Styles>
+                                                            <Style Selector="Border:pointerover">
+                                                                <Setter Property="Background" Value="#334155"/>
+                                                            </Style>
+                                                        </Border.Styles>
+                                                        <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+                                                            <!-- Icon Huy hiệu / Tài khoản giống ảnh 2 -->
+                                                            <Border Grid.Column="0" 
+                                                                    Width="28" Height="28" 
+                                                                    CornerRadius="14" 
+                                                                    Background="#334155"
+                                                                    Margin="0 0 10 0"
+                                                                    VerticalAlignment="Center">
+                                                                <TextBlock Text="🏛️" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                            <!-- Tên tài khoản & Mật khẩu dạng chấm ● giống ảnh 2 -->
+                                                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                                                <TextBlock Text="{Binding Username}" 
+                                                                           FontWeight="SemiBold" 
+                                                                           FontSize="13" 
+                                                                           Foreground="#F8FAFC"/>
+                                                                <TextBlock Text="••••••••••" 
+                                                                           FontSize="10" 
+                                                                           Foreground="#94A3B8" 
+                                                                           LetterSpacing="2"/>
+                                                            </StackPanel>
+
+                                                            <!-- Nút xóa tài khoản ✕ ở cuối mỗi dòng -->
+                                                            <Button Grid.Column="2"
+                                                                    Classes="secondary"
+                                                                    Click="OnDeleteSavedAccountClick" 
+                                                                    CommandParameter="{Binding}"
+                                                                    ToolTip.Tip="Xóa tài khoản này khỏi danh sách đã lưu"
+                                                                    Width="22" Height="22" MinHeight="22"
+                                                                    Padding="0" CornerRadius="11"
+                                                                    Background="#334155" Foreground="#EF4444" BorderBrush="#475569"
+                                                                    HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6 0 2 0">
+                                                                <TextBlock Text="✕" FontSize="10" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Button>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Password with Hold-to-reveal Eye Icon -->
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Mật khẩu:" FontSize="12" FontWeight="SemiBold" Foreground="#475569"/>
+                        <Grid>
+                            <!-- Ô nhập mật khẩu -->
+                            <TextBox Name="TxtPassword"
+                                     Text="{Binding LoginVM.Password, Mode=TwoWay}" 
+                                     PasswordChar="●" 
+                                     PlaceholderText="Nhập mật khẩu..."
+                                     Padding="10 0 38 0"
+                                     IsEnabled="{Binding LoginVM.CanLogin}"/>
+                            
+                            <!-- Icon con mắt xem mật khẩu (nhấn giữ để hiện, thả ra thì ẩn) -->
+                            <Border Name="EyeBorder"
+                                    Width="34" Height="34"
+                                    Background="Transparent"
+                                    Cursor="Hand"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    PointerPressed="OnShowPasswordPointerPressed"
+                                    PointerReleased="OnShowPasswordPointerReleased"
+                                    PointerCaptureLost="OnShowPasswordPointerCaptureLost"
+                                    ToolTip.Tip="Nhấn và giữ để xem mật khẩu">
+                                <TextBlock Name="TxtEyeIcon" 
+                                           Text="👁️" 
+                                           FontSize="15" 
+                                           Opacity="0.6" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Checkboxes: Ghi nhớ tài khoản (Đã bỏ Tự động đăng nhập) -->
+                    <CheckBox Content="Ghi nhớ tài khoản này sau khi đăng nhập" 
+                              IsChecked="{Binding LoginVM.RememberMe, Mode=TwoWay}"
+                              IsEnabled="{Binding LoginVM.CanLogin}"/>
+
+                    <!-- Status / Error Message -->
+                    <Border IsVisible="{Binding LoginVM.StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" 
+                            Background="{Binding LoginVM.HasError, Converter={x:Static ObjectConverters.IsNull}}"
+                            CornerRadius="6" Padding="10 8">
+                        <TextBlock Text="{Binding LoginVM.StatusMessage}" 
+                                   Foreground="{Binding LoginVM.HasError, Converter={x:Static ObjectConverters.IsNull}}"
+                                   FontSize="12" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <!-- Login Button -->
+                    <Button Classes="primary" HorizontalAlignment="Stretch" 
+                            Click="OnLoginButtonClick"
+                            IsEnabled="{Binding LoginVM.CanLogin}">
+                        <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                            <TextBlock Text="⚡" IsVisible="{Binding !LoginVM.IsLoading}"/>
+                            <TextBlock Text="Đăng Nhập Hệ Thống" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- ============================================================ -->
+        <!-- 2. MÀN HÌNH QUẢN LÝ BÁO CÁO (Hiển thị khi IsLoggedIn == true) -->
+        <!-- ============================================================ -->
+        <Grid IsVisible="{Binding IsLoggedIn}" RowDefinitions="Auto,*,Auto">
+            
+            <!-- Top App Bar -->
+            <Border Grid.Row="0" Background="#1E3A8A" Padding="16 12">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <!-- App Title -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <TextBlock Text="📊" FontSize="22" VerticalAlignment="Center"/>
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="HỆ THỐNG BÁO CÁO IOC HÀ TĨNH" FontSize="15" FontWeight="Bold" Foreground="#FFFFFF"/>
+                            <TextBlock Text="Công cụ quản lý &amp; nhập liệu báo cáo tự động" FontSize="11" Foreground="#93C5FD"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- User Information -->
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="2">
+                        <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                            <TextBlock Text="👤" Foreground="#60A5FA"/>
+                            <TextBlock Text="{Binding UserDisplayInfo}" FontWeight="SemiBold" Foreground="#FFFFFF" FontSize="13"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding SessionDetails}" FontSize="10" Foreground="#BFDBFE" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Action Buttons -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <Button Classes="secondary" Click="OnRefreshReportsClick" ToolTip.Tip="Tải lại danh sách báo cáo">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="🔄"/>
+                                <TextBlock Text="Làm mới"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="danger" Click="OnLogoutClick" ToolTip.Tip="Đăng xuất khỏi phiên hiện tại">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="🚪"/>
+                                <TextBlock Text="Đăng xuất"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Main Workspace: Left Sidebar Menu + Right Content DataGrid -->
+            <Grid Grid.Row="1" ColumnDefinitions="260,*">
+                
+                <!-- ============================================================ -->
+                <!-- LEFT SIDEBAR MENU (Như ảnh 2)                                -->
+                <!-- ============================================================ -->
+                <Border Grid.Column="0" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="0 0 1 0" Padding="12 16">
+                    <StackPanel Spacing="12">
+                        <!-- Sidebar Header -->
+                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="6" Padding="12 10" Margin="0 0 0 6">
+                            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <TextBlock Text="📑" FontSize="15"/>
+                                <TextBlock Text="NHẬP LIỆU" FontWeight="Bold" FontSize="13" Foreground="#334155" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Menu Item 1: Nhập báo cáo số liệu -->
+                        <Border Background="{Binding InputTabBackground}"
+                                BorderBrush="{Binding InputTabBorderBrush}"
+                                BorderThickness="{Binding InputTabBorderThickness}"
+                                CornerRadius="8">
+                            <Button Classes="nav-item" Click="OnSelectInputTabClick"
+                                    Background="Transparent">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <TextBlock Grid.Column="0" Text="✏️" FontSize="16" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="Nhập báo cáo số liệu" 
+                                                   FontWeight="{Binding InputTabFontWeight}" 
+                                                   Foreground="{Binding InputTabForeground}" 
+                                                   FontSize="13"/>
+                                        <TextBlock Text="Đang nhập &amp; Trả lại" FontSize="10" Foreground="{Binding InputTabSubForeground}"/>
+                                    </StackPanel>
+                                    <Border Grid.Column="2" Background="{Binding InputTabBadgeBackground}" BorderBrush="{Binding InputTabBadgeBorder}" BorderThickness="1" CornerRadius="10" Padding="8 2" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding InputReportsCount}" FontSize="11" FontWeight="Bold" Foreground="{Binding InputTabBadgeForeground}"/>
+                                    </Border>
+                                </Grid>
+                            </Button>
+                        </Border>
+
+                        <!-- Menu Item 2: Gửi báo cáo -->
+                        <Border Background="{Binding SubmitTabBackground}"
+                                BorderBrush="{Binding SubmitTabBorderBrush}"
+                                BorderThickness="{Binding SubmitTabBorderThickness}"
+                                CornerRadius="8">
+                            <Button Classes="nav-item" Click="OnSelectSubmitTabClick"
+                                    Background="Transparent">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <TextBlock Grid.Column="0" Text="🚀" FontSize="16" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="Gửi báo cáo" 
+                                                   FontWeight="{Binding SubmitTabFontWeight}" 
+                                                   Foreground="{Binding SubmitTabForeground}" 
+                                                   FontSize="13"/>
+                                        <TextBlock Text="Đã trình &amp; Đã duyệt" FontSize="10" Foreground="{Binding SubmitTabSubForeground}"/>
+                                    </StackPanel>
+                                    <Border Grid.Column="2" Background="{Binding SubmitTabBadgeBackground}" BorderBrush="{Binding SubmitTabBadgeBorder}" BorderThickness="1" CornerRadius="10" Padding="8 2" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding SubmitReportsCount}" FontSize="11" FontWeight="Bold" Foreground="{Binding SubmitTabBadgeForeground}"/>
+                                    </Border>
+                                </Grid>
+                            </Button>
+                        </Border>
+
+                        <!-- Menu Item 3: Trạng thái báo cáo đã gửi -->
+                        <Border Background="{Binding TrackingTabBackground}"
+                                BorderBrush="{Binding TrackingTabBorderBrush}"
+                                BorderThickness="{Binding TrackingTabBorderThickness}"
+                                CornerRadius="8">
+                            <Button Classes="nav-item" Click="OnSelectTrackingTabClick"
+                                    Background="Transparent">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <TextBlock Grid.Column="0" Text="📊" FontSize="16" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="Trạng thái báo cáo đã gửi" 
+                                                   FontWeight="{Binding TrackingTabFontWeight}" 
+                                                   Foreground="{Binding TrackingTabForeground}" 
+                                                   FontSize="13"/>
+                                        <TextBlock Text="Đã gửi &amp; Đã duyệt" FontSize="10" Foreground="{Binding TrackingTabSubForeground}"/>
+                                    </StackPanel>
+                                    <Border Grid.Column="2" Background="{Binding TrackingTabBadgeBackground}" BorderBrush="{Binding TrackingTabBadgeBorder}" BorderThickness="1" CornerRadius="10" Padding="8 2" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding TrackingReportsCount}" FontSize="11" FontWeight="Bold" Foreground="{Binding TrackingTabBadgeForeground}"/>
+                                    </Border>
+                                </Grid>
+                            </Button>
+                        </Border>
+
+                        <!-- Menu Item 4: Duyệt báo cáo (Dành cho tài khoản Tổng hợp / Lãnh đạo duyệt) -->
+                        <Border Background="{Binding ApprovalTabBackground}"
+                                BorderBrush="{Binding ApprovalTabBorderBrush}"
+                                BorderThickness="{Binding ApprovalTabBorderThickness}"
+                                CornerRadius="8">
+                            <Button Classes="nav-item" Click="OnSelectApprovalTabClick"
+                                    Background="Transparent">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <TextBlock Grid.Column="0" Text="🛡️" FontSize="16" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="Duyệt báo cáo" 
+                                                   FontWeight="{Binding ApprovalTabFontWeight}" 
+                                                   Foreground="{Binding ApprovalTabForeground}" 
+                                                   FontSize="13"/>
+                                        <TextBlock Text="Chờ duyệt &amp; Đã duyệt" FontSize="10" Foreground="{Binding ApprovalTabSubForeground}"/>
+                                    </StackPanel>
+                                    <Border Grid.Column="2" Background="{Binding ApprovalTabBadgeBackground}" BorderBrush="{Binding ApprovalTabBadgeBorder}" BorderThickness="1" CornerRadius="10" Padding="8 2" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding ApprovalReportsCount}" FontSize="11" FontWeight="Bold" Foreground="{Binding ApprovalTabBadgeForeground}"/>
+                                    </Border>
+                                </Grid>
+                            </Button>
+                        </Border>
+
+                        <!-- Menu Item 5: Tổng hợp báo cáo -->
+                        <Border Background="{Binding AggregateTabBackground}"
+                                BorderBrush="{Binding AggregateTabBorderBrush}"
+                                BorderThickness="{Binding AggregateTabBorderThickness}"
+                                CornerRadius="8">
+                            <Button Classes="nav-item" Click="OnSelectAggregateTabClick"
+                                    Background="Transparent">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <TextBlock Grid.Column="0" Text="⚡" FontSize="16" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="Tổng hợp báo cáo" 
+                                                   FontWeight="{Binding AggregateTabFontWeight}" 
+                                                   Foreground="{Binding AggregateTabForeground}" 
+                                                   FontSize="13"/>
+                                        <TextBlock Text="Tổng hợp &amp; Báo cáo" FontSize="10" Foreground="{Binding AggregateTabSubForeground}"/>
+                                    </StackPanel>
+                                    <Border Grid.Column="2" Background="{Binding AggregateTabBadgeBackground}" BorderBrush="{Binding AggregateTabBadgeBorder}" BorderThickness="1" CornerRadius="10" Padding="8 2" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding AggregateReportsCount}" FontSize="11" FontWeight="Bold" Foreground="{Binding AggregateTabBadgeForeground}"/>
+                                    </Border>
+                                </Grid>
+                            </Button>
+                        </Border>
+
+                        <Separator Height="1" Background="#E2E8F0" Margin="0 8"/>
+
+                        <!-- Navigation Guide / Tip Box -->
+                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0 4">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="💡 Hướng dẫn phân loại:" FontSize="11" FontWeight="Bold" Foreground="#475569"/>
+                                <TextBlock Text="• Nhập báo cáo số liệu: Các biểu mẫu đang điền hoặc bị cấp trên yêu cầu nhập lại." FontSize="10" Foreground="#64748B" TextWrapping="Wrap"/>
+                                <TextBlock Text="• Gửi báo cáo: Các biểu mẫu đã trình lãnh đạo duyệt hoặc đã gửi lên Tỉnh." FontSize="10" Foreground="#64748B" TextWrapping="Wrap"/>
+                                <TextBlock Text="• Trạng thái báo cáo đã gửi: Toàn bộ danh mục báo cáo đã gửi và báo cáo đã được duyệt." FontSize="10" Foreground="#64748B" TextWrapping="Wrap"/>
+                                <TextBlock Text="• Duyệt báo cáo: Phê duyệt báo cáo đơn vị cấp dưới, duyệt yêu cầu đính chính &amp; từ chối." FontSize="10" Foreground="#64748B" TextWrapping="Wrap"/>
+                                <TextBlock Text="• Tổng hợp báo cáo: Tổng hợp dữ liệu các biểu mẫu báo cáo tổng hợp từ API IOC." FontSize="10" Foreground="#64748B" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============================================================ -->
+                <!-- RIGHT CONTENT: TITLE, FILTERS & DATAGRID                     -->
+                <!-- ============================================================ -->
+                <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,*" Background="#F8FAFC">
+                    
+                    <!-- Section Title Bar -->
+                    <Border Grid.Row="0" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="0 0 0 1" Padding="16 12">
+                        <Grid ColumnDefinitions="*,Auto,Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="{Binding CurrentTabTitle}" FontSize="16" FontWeight="Bold" Foreground="#1E293B"/>
+                                <TextBlock Text="{Binding CurrentTabDescription}" FontSize="11" Foreground="#64748B"/>
+                            </StackPanel>
+
+                            <!-- Khung Tổng hợp hàng loạt (Hiển thị ở Mục 1: Nhập báo cáo hoặc Mục 5: Tổng hợp báo cáo) -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" 
+                                        IsVisible="{Binding CanShowBatchAggregate}"
+                                        Margin="0 0 12 0" VerticalAlignment="Center">
+                                <!-- Ô nhập số luồng -->
+                                <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                    <TextBlock Text="Số luồng:" FontSize="12" FontWeight="SemiBold" Foreground="#475569" VerticalAlignment="Center"/>
+                                    <NumericUpDown Value="{Binding ThreadCount, Mode=TwoWay}"
+                                                   Minimum="1" Maximum="20" Increment="1"
+                                                   FormatString="0"
+                                                   ShowButtonSpinner="False"
+                                                   Width="65" Height="34"
+                                                   HorizontalContentAlignment="Center"
+                                                   VerticalContentAlignment="Center"
+                                                   CornerRadius="6"
+                                                   ToolTip.Tip="Số luồng xử lý đồng thời khi tổng hợp hàng loạt (1 - 20)"/>
+                                </StackPanel>
+
+                                <!-- Nút 1: Tổng hợp hàng loạt đã duyệt -->
+                                <Button Classes="primary" 
+                                        Click="OnBatchAggregateApprovedClick" 
+                                        IsEnabled="{Binding !IsBatchAggregating}"
+                                        Margin="0"
+                                        Padding="14 8"
+                                        Background="#16A34A"
+                                        ToolTip.Tip="Chỉ lấy số liệu từ các báo cáo cấp dưới có trạng thái ĐÃ DUYỆT cho các biểu mẫu được chọn (hoặc tất cả đang hiển thị)">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                        <TextBlock Text="⚡" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Tổng hợp hàng loạt đã duyệt" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                                        <Border Background="#15803D" CornerRadius="10" Padding="6 1" IsVisible="{Binding HasSelectedAggregateReports}" VerticalAlignment="Center" Margin="2 0 0 0">
+                                            <TextBlock Text="{Binding SelectedAggregateReportsCount}" FontWeight="Bold" FontSize="10" Foreground="#FFFFFF"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+
+                                <!-- Nút 2: Tổng hợp hàng loạt tất cả -->
+                                <Button Classes="primary" 
+                                        Click="OnBatchAggregateAllClick" 
+                                        IsEnabled="{Binding !IsBatchAggregating}"
+                                        Margin="0"
+                                        Padding="14 8"
+                                        Background="#7C3AED"
+                                        ToolTip.Tip="Lấy số liệu từ TẤT CẢ các báo cáo cấp dưới hợp lệ (ngoại trừ trạng thái 'Đã giao') cho các biểu mẫu được chọn (hoặc tất cả đang hiển thị)">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                        <TextBlock Text="⚡" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Tổng hợp hàng loạt tất cả" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                                        <Border Background="#6D28D9" CornerRadius="10" Padding="6 1" IsVisible="{Binding HasSelectedAggregateReports}" VerticalAlignment="Center" Margin="2 0 0 0">
+                                            <TextBlock Text="{Binding SelectedAggregateReportsCount}" FontWeight="Bold" FontSize="10" Foreground="#FFFFFF"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+
+                            <!-- Action Buttons Container (Column 1) -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center" Margin="0 0 12 0">
+                                <!-- Nút Trình lãnh đạo hàng loạt (Mục 1: Nhập báo cáo) -->
+                                <Button Classes="primary"
+                                        Click="OnSubmitMultipleReportsToLeaderClick"
+                                        IsVisible="{Binding IsInputTabSelected}"
+                                        Padding="14 8"
+                                        Background="#7C3AED"
+                                        ToolTip.Tip="Trình lãnh đạo tất cả báo cáo đang được tích chọn bằng một lệnh IOC">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                        <TextBlock Text="🚀" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Trình lãnh đạo hàng loạt" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                                        <Border Background="#6D28D9" CornerRadius="10" Padding="6 1" IsVisible="{Binding HasSelectedInputReports}" VerticalAlignment="Center" Margin="2 0 0 0">
+                                            <TextBlock Text="{Binding SelectedInputReportsCount}" FontWeight="Bold" FontSize="10" Foreground="#FFFFFF"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+
+                                <!-- Nút Gửi nhiều báo cáo (Chỉ hiển thị ở Mục 2: Gửi báo cáo) -->
+                                <Button Classes="primary" 
+                                        Click="OnSendMultipleReportsClick" 
+                                        IsVisible="{Binding IsSubmitTabSelected}"
+                                        Padding="14 8"
+                                        ToolTip.Tip="Gửi tất cả các báo cáo đang được tích chọn lên cấp trên">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                        <TextBlock Text="✈️" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Gửi nhiều báo cáo" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                                        <Border Background="#3B82F6" CornerRadius="10" Padding="6 1" IsVisible="{Binding HasSelectedSubmitReports}" VerticalAlignment="Center" Margin="2 0 0 0">
+                                            <TextBlock Text="{Binding SelectedSubmitReportsCount}" FontWeight="Bold" FontSize="10" Foreground="#FFFFFF"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+
+                                <!-- Nút từ chối nhiều báo cáo (Mục 2: Gửi báo cáo) -->
+                                <Button Classes="primary"
+                                        Click="OnRejectMultipleSubmitReportsClick"
+                                        IsVisible="{Binding IsSubmitTabSelected}"
+                                        Padding="14 8"
+                                        Background="#DC2626"
+                                        ToolTip.Tip="Từ chối đồng loạt các báo cáo đã chọn và trả về mục Nhập liệu">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                        <TextBlock Text="🚫" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Từ chối nhiều báo cáo" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                                        <Border Background="#B91C1C" CornerRadius="10" Padding="6 1" IsVisible="{Binding HasSelectedSubmitReports}" VerticalAlignment="Center" Margin="2 0 0 0">
+                                            <TextBlock Text="{Binding SelectedSubmitReportsCount}" FontWeight="Bold" FontSize="10" Foreground="#FFFFFF"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+
+                                <!-- Nút Duyệt nhiều báo cáo (Chỉ hiển thị ở Mục 4 khi không chọn Báo cáo đã được duyệt) -->
+                                <Button Classes="primary" 
+                                        Click="OnApproveMultipleReportsClick" 
+                                        IsVisible="{Binding CanShowBatchApproveButton}"
+                                        Padding="14 8"
+                                        Background="#15803D"
+                                        ToolTip.Tip="Phê duyệt tất cả các báo cáo đang được tích chọn">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                        <TextBlock Text="✅" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Duyệt nhiều báo cáo" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                                        <Border Background="#16A34A" CornerRadius="10" Padding="6 1" IsVisible="{Binding HasSelectedApprovalReports}" VerticalAlignment="Center" Margin="2 0 0 0">
+                                            <TextBlock Text="{Binding SelectedApprovalReportsCount}" FontWeight="Bold" FontSize="10" Foreground="#FFFFFF"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+
+                                <!-- Nút Duyệt nhiều yêu cầu đính chính (Hiển thị ở Mục 4: Duyệt báo cáo) -->
+                                <Button Classes="primary" 
+                                        Click="OnBatchCorrectionClick" 
+                                        IsVisible="{Binding CanShowBatchCorrectionButton}"
+                                        Padding="14 8"
+                                        Background="#D97706"
+                                        ToolTip.Tip="Xử lý đồng loạt các yêu cầu xin đính chính số liệu từ đơn vị (Tích chọn các báo cáo có yêu cầu đính chính)">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                        <TextBlock Text="📝" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Duyệt nhiều yêu cầu đính chính" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                                        <Border Background="#B45309" CornerRadius="10" Padding="6 1" IsVisible="{Binding HasSelectedCorrectionReports}" VerticalAlignment="Center" Margin="2 0 0 0">
+                                            <TextBlock Text="{Binding SelectedCorrectionReportsCount}" FontWeight="Bold" FontSize="10" Foreground="#FFFFFF"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+
+                                <!-- Nút Từ chối nhiều báo cáo (Chỉ hiển thị ở Mục 4 khi chọn Báo cáo đã được duyệt) -->
+                                <Button Classes="primary" 
+                                        Click="OnRejectMultipleReportsClick" 
+                                        IsVisible="{Binding CanShowBatchRejectButton}"
+                                        Padding="14 8"
+                                        Background="#DC2626"
+                                        ToolTip.Tip="Từ chối tất cả các báo cáo đã duyệt đang được tích chọn">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                        <TextBlock Text="🚫" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Từ chối nhiều báo cáo" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                                        <Border Background="#B91C1C" CornerRadius="10" Padding="6 1" IsVisible="{Binding HasSelectedApprovalReports}" VerticalAlignment="Center" Margin="2 0 0 0">
+                                            <TextBlock Text="{Binding SelectedApprovalReportsCount}" FontWeight="Bold" FontSize="10" Foreground="#FFFFFF"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+
+                            <Border Grid.Column="2" Background="{Binding CurrentTabBadgeBackground}" BorderThickness="1" CornerRadius="6" Padding="12 6" VerticalAlignment="Center">
+                                <TextBlock FontSize="12" FontWeight="SemiBold" Foreground="{Binding CurrentTabBadgeForeground}">
+                                    <Run Text="Báo cáo: "/>
+                                    <Run Text="{Binding FilteredCount}"/>
+                                </TextBlock>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Batch Progress Banner (Hiển thị khi đang tổng hợp hàng loạt) -->
+                    <Border Grid.Row="1" Background="#F5F3FF" BorderBrush="#DDD6FE" BorderThickness="0 0 0 1" Padding="16 8" IsVisible="{Binding IsBatchAggregating}">
+                        <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center" Margin="0 0 12 0">
+                                <TextBlock Text="⚡" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding BatchProgressText}" FontSize="12" FontWeight="SemiBold" Foreground="#6D28D9" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <ProgressBar Grid.Column="1" Value="{Binding BatchProgress}" Minimum="0" Maximum="100" Height="8" CornerRadius="4" Background="#E9D5FF" Foreground="#7C3AED" VerticalAlignment="Center" Margin="0 0 12 0"/>
+                            <TextBlock Grid.Column="2" Text="{Binding BatchProgress, StringFormat='{}{0:F0}%'}" FontSize="12" FontWeight="Bold" Foreground="#6D28D9" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Filter & Search Toolbar (Đã hợp nhất Biểu mẫu báo cáo & Tìm kiếm từ khóa) -->
+                    <Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="0 0 0 1" Padding="16 12">
+                        <Grid ColumnDefinitions="2*,1*,Auto,Auto" VerticalAlignment="Center">
+                            
+                            <!-- Searchable ComboBox: Biểu mẫu báo cáo (Rút gọn) -->
+                            <StackPanel Grid.Column="0" Margin="0 0 10 0" Spacing="4">
+                                <TextBlock Text="Biểu mẫu báo cáo:" FontSize="11" FontWeight="SemiBold" Foreground="#64748B"/>
+                                <DropDownButton x:Name="ReportDropDownButton"
+                                                HorizontalAlignment="Stretch"
+                                                MinHeight="34"
+                                                Height="34"
+                                                Background="#FFFFFF"
+                                                BorderBrush="#CBD5E1"
+                                                BorderThickness="1"
+                                                CornerRadius="6"
+                                                Padding="10 0"
+                                                VerticalContentAlignment="Center"
+                                                HorizontalContentAlignment="Stretch">
+                                    <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                        <TextBlock Grid.Column="0" 
+                                                   Text="{Binding SelectedReportDisplay}" 
+                                                   TextTrimming="CharacterEllipsis" 
+                                                   VerticalAlignment="Center"
+                                                   Foreground="#1E293B" 
+                                                   FontSize="14"/>
+                                    </Grid>
+                                    <DropDownButton.Flyout>
+                                        <Flyout Placement="BottomEdgeAlignedLeft" Opened="OnReportDropDownFlyoutOpened">
+                                            <Border x:Name="ReportFlyoutBorder"
+                                                    Width="{Binding #ReportDropDownButton.Bounds.Width}"
+                                                    MinWidth="{Binding #ReportDropDownButton.Bounds.Width}"
+                                                    MaxHeight="380" 
+                                                    Background="#FFFFFF" 
+                                                    BorderBrush="#CBD5E1" 
+                                                    BorderThickness="1" 
+                                                    CornerRadius="8" 
+                                                    Padding="10">
+                                                <Grid RowDefinitions="Auto,*">
+                                                    <!-- Ô thứ 2: Search Box -->
+                                                    <TextBox x:Name="ReportFilterSearchBox"
+                                                             Grid.Row="0"
+                                                             Text="{Binding SearchKeyword, Mode=TwoWay}"
+                                                             PlaceholderText="🔍 Nhập từ khóa để tìm kiếm nhanh..."
+                                                             MinHeight="34"
+                                                             Height="34"
+                                                             FontSize="14"
+                                                             VerticalContentAlignment="Center"
+                                                             Padding="10 0"
+                                                             Margin="0 0 0 8"/>
+                                                    <!-- Phía dưới: Danh sách biểu mẫu (Thu gọn bề dọc mỗi phần tử, cỡ chữ 14px đồng bộ) -->
+                                                    <ListBox Grid.Row="1"
+                                                             ItemsSource="{Binding FilteredReportNames}"
+                                                             SelectedItem="{Binding SelectedReportFilter, Mode=TwoWay}"
+                                                             SelectionChanged="OnReportNameSelectionChanged"
+                                                             MaxHeight="300"
+                                                             FontSize="14"
+                                                             HorizontalAlignment="Stretch"
+                                                             Background="Transparent">
+                                                        <ListBox.Styles>
+                                                            <Style Selector="ListBoxItem">
+                                                                <Setter Property="MinHeight" Value="28"/>
+                                                                <Setter Property="Height" Value="28"/>
+                                                                <Setter Property="Padding" Value="8 0"/>
+                                                                <Setter Property="FontSize" Value="14"/>
+                                                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                            </Style>
+                                                        </ListBox.Styles>
+                                                        <ListBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding}" 
+                                                                           TextTrimming="CharacterEllipsis" 
+                                                                           FontSize="14"
+                                                                           VerticalAlignment="Center"/>
+                                                            </DataTemplate>
+                                                        </ListBox.ItemTemplate>
+                                                    </ListBox>
+                                                </Grid>
+                                            </Border>
+                                        </Flyout>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
+                            </StackPanel>
+
+                            <!-- ComboBox: Đơn vị báo cáo -->
+                            <StackPanel Grid.Column="1" Margin="0 0 10 0" Spacing="4">
+                                <TextBlock Text="Đơn vị báo cáo:" FontSize="11" FontWeight="SemiBold" Foreground="#64748B"/>
+                                <ComboBox ItemsSource="{Binding OrgFilters}" 
+                                          SelectedItem="{Binding SelectedOrgFilter, Mode=TwoWay}" 
+                                          HorizontalAlignment="Stretch"
+                                          MinHeight="34"
+                                          Height="34"/>
+                            </StackPanel>
+
+                            <!-- Period Filter ComboBox -->
+                            <StackPanel Grid.Column="2" Margin="0 0 10 0" Spacing="4">
+                                <TextBlock Text="Loại chu kỳ:" FontSize="11" FontWeight="SemiBold" Foreground="#64748B"/>
+                                <ComboBox ItemsSource="{Binding PeriodFilters}" 
+                                          SelectedItem="{Binding SelectedPeriodFilter, Mode=TwoWay}" 
+                                          Width="130"
+                                          MinHeight="34"
+                                          Height="34"/>
+                            </StackPanel>
+
+                            <!-- Status Filter ComboBox -->
+                            <StackPanel Grid.Column="3" Spacing="4">
+                                <TextBlock Text="Trạng thái:" FontSize="11" FontWeight="SemiBold" Foreground="#64748B"/>
+                                <ComboBox ItemsSource="{Binding StatusFilters}" 
+                                          SelectedItem="{Binding SelectedStatusFilter, Mode=TwoWay}" 
+                                          Width="250"
+                                          MinHeight="34"
+                                          Height="34"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Main DataGrid: Danh sách Báo cáo -->
+                    <Grid Grid.Row="3" Margin="16">
+                        <!-- DataGrid Content (ĐÃ XÓA CỘT LOẠI CHU KỲ THEO YÊU CẦU) -->
+                        <DataGrid x:Name="ReportsDataGrid"
+                                  ItemsSource="{Binding FilteredReports}"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  GridLinesVisibility="All"
+                                  HorizontalGridLinesBrush="#CBD5E1"
+                                  VerticalGridLinesBrush="#CBD5E1"
+                                  BorderBrush="#CBD5E1"
+                                  BorderThickness="1"
+                                  CornerRadius="8"
+                                  Background="#FFFFFF"
+                                  CanUserResizeColumns="True"
+                                  CanUserSortColumns="True"
+                                  UseLayoutRounding="True">
+                            <DataGrid.Columns>
+                                <!-- Cột Chọn Nhiều (Hiển thị ở Mục 2: Gửi báo cáo, Mục 4: Duyệt báo cáo, Mục 5: Tổng hợp) -->
+                                <DataGridTemplateColumn Width="45" CanUserSort="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <CheckBox IsChecked="{Binding #RootWindow.((vm:MainViewModel)DataContext).IsAllSelected, Mode=TwoWay}"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0"
+                                                  ToolTip.Tip="Chọn tất cả các báo cáo"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="models:ReportItem">
+                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- STT (Chỉ hiển thị ở Mục 3: Theo dõi, ẩn ở các mục khác) -->
+                                <DataGridTemplateColumn Header="STT" Width="65" CanUserSort="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding $parent[DataGridRow].Index, Converter={x:Static helpers:IndexToSttConverter.Instance}}" 
+                                                       HorizontalAlignment="Center" 
+                                                       VerticalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- OBJ_NAME: Tên báo cáo / Biểu mẫu -->
+                                <DataGridTextColumn Header="Tên biểu mẫu báo cáo" Binding="{Binding ObjName}" Width="*"/>
+
+                                <!-- TIME_NAME: Kỳ dữ liệu (Ưu tiên sắp xếp từ nhỏ đến lớn) -->
+                                <DataGridTextColumn Header="Kỳ dữ liệu" Binding="{Binding TimeName}" SortMemberPath="PeriodSortKey" Width="140"/>
+
+                                <!-- STATUS BADGE: Trạng thái chuẩn hóa -->
+                                <DataGridTemplateColumn Header="Trạng thái" Width="160" CanUserSort="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="models:ReportItem">
+                                            <Border Background="{Binding StatusBadgeBackground}" 
+                                                    CornerRadius="12" 
+                                                    Padding="10 4" 
+                                                    Margin="4"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding DisplayStatusName}" 
+                                                           Foreground="{Binding StatusBadgeForeground}" 
+                                                           FontSize="11" 
+                                                           FontWeight="SemiBold"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- END_DATE: Hạn nộp / Ngày kết thúc / Ngày duyệt (Sắp xếp theo thứ tự thời gian chuẩn yyyyMMdd) -->
+                                <DataGridTextColumn Header="Ngày kết thúc" Binding="{Binding DisplayDateColumn}" SortMemberPath="DateSortKey" Width="140"/>
+
+                                <!-- REPORT_ORG_NAME: Đơn vị báo cáo (Hiển thị khi ở mục Duyệt báo cáo) -->
+                                <DataGridTextColumn Header="Đơn vị báo cáo" Binding="{Binding ReportOrgName}" Width="180"/>
+
+                                <!-- THAO TÁC: Cột thao tác hiển thị các bộ icon theo từng mục báo cáo (Luôn ở cuối cùng bên phải) -->
+                                <DataGridTemplateColumn Header="Thao tác" Width="150" CanUserSort="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="models:ReportItem">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4"
+                                                        PointerPressed="OnReportActionPointerPressed">
+                                                <!-- ============================================================ -->
+                                                <!-- MỤC 1: NHẬP BÁO CÁO SỐ LIỆU                                  -->
+                                                <!-- ============================================================ -->
+                                                <!-- Mục 1: ✏️ Cây bút (chỉnh sửa số liệu) -->
+                                                <Button Classes="action-edit-btn" 
+                                                        Click="OnEditReportClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanEdit}"
+                                                        ToolTip.Tip="Chỉnh sửa &amp; Nhập số liệu báo cáo">
+                                                    <TextBlock Text="✏️" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- Mục 1: 💬 Xem lý do báo cáo bị từ chối -->
+                                                <Button Classes="action-msg-btn" 
+                                                        Click="OnShowRejectionReasonClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding HasRejectionReason}"
+                                                        ToolTip.Tip="Xem chi tiết lý do báo cáo bị từ chối">
+                                                    <TextBlock Text="💬" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- ============================================================ -->
+                                                <!-- MỤC 2: GỬI BÁO CÁO                                           -->
+                                                <!-- ============================================================ -->
+                                                <!-- Mục 2: 👁️ Con mắt (xem thông tin báo cáo) -->
+                                                <Button Classes="action-view-btn" 
+                                                        Click="OnViewReportClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanSubmitView}"
+                                                        ToolTip.Tip="Xem thông tin chi tiết báo cáo">
+                                                    <TextBlock Text="👁️" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- Mục 2: ✈️ Gửi báo cáo -->
+                                                <Button Classes="action-send-btn" 
+                                                        Click="OnSendReportClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanSendReport}"
+                                                        ToolTip.Tip="Gửi báo cáo lên cấp trên / Tỉnh">
+                                                    <TextBlock Text="✈️" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- Mục 2: 🚫 Từ chối báo cáo -->
+                                                <Button Classes="action-reject-btn" 
+                                                        Click="OnRejectReportClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanSubmitReject}"
+                                                        ToolTip.Tip="Từ chối báo cáo này">
+                                                    <TextBlock Text="🚫" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- Mục 2: 💬 Xem nội dung ý kiến khi trình lãnh đạo -->
+                                                <Button Classes="action-msg-btn" 
+                                                        Click="OnShowOpinionClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding HasSubmitOpinion}"
+                                                        ToolTip.Tip="Xem nội dung ý kiến khi trình lãnh đạo">
+                                                    <TextBlock Text="💬" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- ============================================================ -->
+                                                <!-- MỤC 3: THEO DÕI TRẠNG THÁI BÁO CÁO                           -->
+                                                <!-- ============================================================ -->
+                                                <!-- Mục 3: 👁️ Con mắt (xem thông tin báo cáo) -->
+                                                <Button Classes="action-view-btn" 
+                                                        Click="OnViewReportClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanTrackingView}"
+                                                        ToolTip.Tip="Xem thông tin chi tiết báo cáo">
+                                                    <TextBlock Text="👁️" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- Mục 3: 🔄 Yêu cầu đính chính -->
+                                                <Button Classes="action-revert-btn" 
+                                                        Click="OnRequestCorrectionClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanRequestCorrection}"
+                                                        ToolTip.Tip="Yêu cầu đính chính báo cáo này">
+                                                    <TextBlock Text="🔄" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- ============================================================ -->
+                                                <!-- MỤC 4: DUYỆT BÁO CÁO                                         -->
+                                                <!-- ============================================================ -->
+                                                <!-- Mục 4: 👁️ Con mắt xem báo cáo (cho cả 2 loại: Đã gửi và Đã duyệt) -->
+                                                <Button Classes="action-view-btn" 
+                                                        Click="OnViewReportClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanApprovalView}"
+                                                        ToolTip.Tip="Xem chi tiết số liệu báo cáo">
+                                                    <TextBlock Text="👁️" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- Mục 4: ✅ Duyệt báo cáo (chỉ hiển thị cho Báo cáo đã được gửi - State 3) -->
+                                                <Button Classes="action-approve-btn" 
+                                                        Click="OnApproveReportClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanApprovalApprove}"
+                                                        ToolTip.Tip="Phê duyệt báo cáo này">
+                                                    <TextBlock Text="✅" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- Mục 4: 📝 Duyệt yêu cầu đính chính (chỉ hiển thị cho Báo cáo đã được duyệt - State 4 KHI CÓ YÊU CẦU ĐÍNH CHÍNH) -->
+                                                <Button Classes="action-approve-correction-btn" 
+                                                        Click="OnApproveCorrectionClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanApprovalApproveCorrection}"
+                                                        ToolTip.Tip="Xử lý yêu cầu đính chính (Đồng ý hoặc Không đồng ý)">
+                                                    <TextBlock Text="📝" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+
+                                                <!-- Mục 4: 🚫 Từ chối báo cáo (cho cả 2 loại: Đã gửi và Đã duyệt) -->
+                                                <Button Classes="action-reject-btn" 
+                                                        Click="OnApprovalRejectClick" 
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding CanApprovalReject}"
+                                                        ToolTip.Tip="Từ chối / Trả lại báo cáo cho đơn vị">
+                                                    <TextBlock Text="🚫" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- Loading Indicator Overlay -->
+                        <Border Background="#99FFFFFF" IsVisible="{Binding IsLoadingReports}" CornerRadius="8">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+                                <TextBlock Text="⏳" FontSize="32" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding StatusMessage}" FontWeight="SemiBold" Foreground="#1E3A8A" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Empty State Message -->
+                        <StackPanel IsVisible="{Binding IsEmptyStateVisible}" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                            <TextBlock Text="📋" FontSize="40" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Không tìm thấy báo cáo nào phù hợp" FontSize="14" FontWeight="SemiBold" Foreground="#64748B" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Thử chọn biểu mẫu khác, đơn vị hoặc đổi bộ lọc kỳ / trạng thái." FontSize="12" Foreground="#94A3B8" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- Bottom Status Bar -->
+            <Border Grid.Row="2" Background="#F1F5F9" BorderBrush="#E2E8F0" BorderThickness="0 1 0 0" Padding="16 8">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0" Text="{Binding StatusMessage}" FontSize="12" Foreground="#475569" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding AppVersionDisplay}" FontSize="11" FontWeight="SemiBold" Foreground="#2563EB" VerticalAlignment="Center"/>
+                        <TextBlock Text="•" FontSize="11" Foreground="#CBD5E1" VerticalAlignment="Center"/>
+                        <TextBlock Text="Hệ thống tự động hóa VSR • IOC Hà Tĩnh" FontSize="11" Foreground="#94A3B8" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
